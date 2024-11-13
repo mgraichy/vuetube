@@ -1,0 +1,1 @@
+import{_ as o,c as n,b as t,o as r}from"./index-LkaCBDU3.js";const s={};function c(a,e){return r(),n("div",null,e[0]||(e[0]=[t("h1",null,"404 - Not Found",-1)]))}const d=o(s,[["render",c]]);export{d as default};
