@@ -20,5 +20,6 @@
         <!-- <slot/> will be filled in with whatever is included in the body of
              <PageLayout> in components/: -->
         <slot></slot>
+        <slot name="right"></slot>
     </div>
 </template>
