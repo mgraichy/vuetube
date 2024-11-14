@@ -46,5 +46,5 @@ export async function xhr() {
     const value = await response.json();
 
     sessionStorage.setItem('access_token', value.access_token);
-    // window.location.replace(config.homeUri);
+    window.location.replace(config.homeUri);
 }
