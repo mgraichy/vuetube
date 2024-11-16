@@ -6,7 +6,7 @@
 
     const videos = ref({});
     fetchVideos(videos);
-    console.log(videos)
+    // console.log(videos);
 </script>
 
 <template>
