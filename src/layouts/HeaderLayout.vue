@@ -1,5 +1,6 @@
 <script setup>
     import { computed, ref } from 'vue';
+    import { useRouter } from 'vue-router';
     import MenuIcon from 'vue-material-design-icons/Menu.vue';
     import MagnifyIcon from 'vue-material-design-icons/Magnify.vue';
     import { redirectToAuthorizationServer } from '../composables/oauth2-redirect.js';
@@ -8,11 +9,12 @@
     const props = defineProps({
         videoArray: Array
     });
+    const router = useRouter();
+
     // dynamic references:
     const loginButton = ref('');
     const focused = ref(false);
     const form = ref({search: ''});
-    const notFound = ref(false);
 
     let accessToken = sessionStorage.getItem('access_token');
 
@@ -53,31 +55,48 @@
 
     function goToVideo() {
         const searchedVid = limitVideos();
-        // Change this later to an array based on searchedVid that's unique!
-        //https://stackoverflow.com/questions/1960473/get-all-unique-values-in-a-javascript-array-remove-duplicates#answer-14438954
-        // if (searchedVid.length != 1) {
-        //     return notFound.value = true;
-        // }
-        // form.value.search = '';
+        if (searchedVid.length < 1) {
+            clearTheBar();
+            return;
+        }
 
-        // // router.replace({
-        // //     name: 'play-video',
-        // //     query: { id: searchedVid[0].id }
-        // // });
+        let x = 0;
+        let finalId = 0;
+        const lowerCaseFormSearch = form.value.search.toLowerCase();
+        for (let vid of searchedVid) {
+            let currentTitle = vid.title.toLowerCase();
+            if (currentTitle.includes(lowerCaseFormSearch)) {
+                finalId = searchedVid[x].id;
+                break;
+            }
+            x++;
+        };
 
-        // const protocol    = window.location.protocol;
-        // const host        = window.location.host;
-        // window.location.href = `${protocol}//${host}/vuetube/videos?id=${searchedVid[0].id}`;
+        clearTheBar();
+        router.push({
+            name: 'watch',
+            params: { id: finalId }
+        });
     }
 </script>
 
 <template>
-    <!-- <div>Outermost props: <pre>{{ props }}</pre></div> -->
-    <!-- <div>Data loaded: <pre>{{ props.videoArray }}</pre></div> -->
-
-    <div class="flex flex-row justify-between border-4 border-solid border-green-700">
-        <div>HEADER</div>
-        <!--  border border-solid border-red-700 on the <form> below: -->
+    <div class="flex flex-row items-center justify-between border-4 border-solid border-green-700">
+        <div class="flex flex-row">
+            <div class="hover:bg-slate-600 rounded-full p-1">
+                <MenuIcon />
+            </div>
+            <!-- Vue Logo: -->
+            <a class="pl-1 pt-1 pb-1" href="https://vuejs.org/" target="_blank" rel="noopener noreferrer">
+                <!-- viewBox="0 0 196.32 170.02"-->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 196.32 170.02" height="25px" width="25px">
+                    <path fill="#42b883" d="M120.83 0L98.16 39.26 75.49 0H0l98.16 170.02L196.32 0h-75.49z"/>
+                    <path fill="#35495e" d="M120.83 0L98.16 39.26 75.49 0H39.26l58.9 102.01L157.06 0h-36.23z"/>
+                </svg>
+                <!-- Vue Logo Copyright (c) 2013-present, Yuxi (Evan) You -->
+            </a>
+            <a class="pr-1 pt-1 pb-1" href="https://vuejs.org/" target="_blank" rel="noopener noreferrer">ueTube</a>
+        </div>
         <form class="flex-grow max-w-[600px]" @submit.prevent="goToVideo">
             <div class="flex">
                 <input
@@ -89,7 +108,7 @@
                         shadow-inner shadow-secondary py-1 px-4 text-lg w-full
                         focus:border-blue-500 bg-black
                         outline-none"
-                    @focusin="focused=true"
+                    @keyup="focused=true"
                 />
                 <MagnifyIcon
                     id="magnify"
@@ -101,8 +120,13 @@
                 <div
                     v-if="form.search.length > 2 && focused"
                     id="dropdown"
-                    class="absolute z-10 bg-white divide-y divide-gray-100 rounded-lg
-                    shadow w-full dark:bg-gray-700"
+                    class="z-10
+                        absolute
+                        bg-white
+                        divide-y
+                        divide-gray-100
+                        rounded-lg
+                        shadow w-full dark:bg-gray-700"
                 >
                     <ul
                         v-for="vid in videoTitles"
