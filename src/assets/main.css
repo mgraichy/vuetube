@@ -2,3 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    :root {
+        --color-vue: 66 184 131;
+    }
+}
