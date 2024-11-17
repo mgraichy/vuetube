@@ -1,56 +1,40 @@
-export async function fetchVideos(data, id = null) {
-    data.value = {
-        id: 2,
+import { ref, watchEffect, toValue } from 'vue';
+import { config } from './oauth2-config.js';
+
+
+function getRequest(method = 'get') {
+    return {
+        headers: {
+            Accept: 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            Origin: config.redirectUri,
+        },
+        mode: 'cors',
+        credentials: 'include',
+        method: method,
     };
-
-    return data;
-    // fetch(`/api/videos/?id=${id}`, {
-    //     headers: getStandardHeaders(csrfCookie),
-    //     mode: 'cors',
-    //     credentials: 'include',
-    //     method: 'get',
-    // }).then((response) => {
-    //     return response.json();
-    // }).then((json) => {
-    //     data.value = json;
-    // }).catch((err) => { });
-
-    // return data;
 }
 
-// export async function getVideo(data, id) {
-//     await setCsrfCookie();
-//     const csrfCookie = getCookie('XSRF-TOKEN');
+export function useFetch(url) {
+    const data = ref(null);
+    const error = ref(null);
+    const standardRequest = getRequest();
 
-//     fetch(`/api/video/?id=${id}`, {
-//         headers: getStandardHeaders(csrfCookie),
-//         mode: 'cors',
-//         credentials: 'include',
-//         method: 'get',
-//     }).then((response) => {
-//         return response.json();
-//     }).then((json) => {
-//         data.value = json;
-//     }).catch((err) => { });
 
-//     return data;
-// }
+    const fetchData = () => {
+        // reset state before fetching..
+        data.value = null;
+        error.value = null;
 
-// export async function getComments(data, id) {
-//     await setCsrfCookie();
-//     const csrfCookie = getCookie('XSRF-TOKEN');
+        fetch(toValue(url), standardRequest)
+            .then((res) => res.json())
+            .then((json) => (data.value = json))
+            .catch((err) => (error.value = err));
+    }
 
-//     fetch(`/api/comment/?id=${id}`, {
-//         headers: getStandardHeaders(csrfCookie),
-//         mode: 'cors',
-//         credentials: 'include',
-//         method: 'get',
-//     }).then((response) => {
-//         return response.json();
-//     }).then((json) => {
-//         data.value = json;
-//     }).catch((err) => { });
+    watchEffect(() => {
+        fetchData();
+    });
 
-//     return data;
-// }
-
+    return { data, error };
+}
