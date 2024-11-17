@@ -28,7 +28,7 @@
     function goToVideo() {
         const searchedVid = limitVideos();
         // Change this later to an array based on searchedVid that's unique!
-        //https://stackoverflow.com/questions/1960473/get-all-unique-values-in-a-javascript-array-remove-duplicates#answer-14438954
+        // https://stackoverflow.com/questions/1960473/get-all-unique-values-in-a-javascript-array-remove-duplicates#answer-14438954
         if (searchedVid.length != 1) {
             return notFound.value = true;
         }
