@@ -11,4 +11,7 @@ const app = createApp(App);
 app.use(createPinia());
 app.use(router);
 
+// const toggleLeftSidebar = ref(true);
+// app.provide('leftSidebar', toggleLeftSidebar);
+
 app.mount('#app');
