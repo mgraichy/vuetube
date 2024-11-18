@@ -1,9 +1,11 @@
 <script setup>
-    import { computed, ref } from 'vue';
+    import { computed, inject, ref } from 'vue';
     import { useRouter } from 'vue-router';
     import MenuIcon from 'vue-material-design-icons/Menu.vue';
     import MagnifyIcon from 'vue-material-design-icons/Magnify.vue';
     import { redirectToAuthorizationServer } from '../composables/oauth2-redirect.js';
+
+    const leftSidebar = inject('leftSidebar');
 
     // Static props:
     const props = defineProps({
@@ -81,11 +83,18 @@
 </script>
 
 <template>
-    <div class="flex flex-row items-center justify-between border-4 border-solid border-green-700">
+    <header class="flex flex-row items-center justify-between border-4 border-solid border-green-700">
         <div class="flex flex-row">
-            <div class="hover:bg-slate-600 rounded-full p-1">
+            <button
+                class="hover:bg-slate-600
+                    transition-colors
+                    duration-300
+                    rounded-full
+                    p-1"
+                @click="leftSidebar = !leftSidebar"
+            >
                 <MenuIcon />
-            </div>
+            </button>
             <!-- Vue Logo: -->
             <a class="pl-1 pt-1 pb-1" href="https://vuejs.org/" target="_blank" rel="noopener noreferrer">
                 <!-- viewBox="0 0 196.32 170.02"-->
@@ -100,18 +109,24 @@
         <form class="flex-grow max-w-[600px]" @submit.prevent="goToVideo">
             <div class="flex">
                 <input
-                    id="searchbar"
                     v-model="form.search"
                     type="search"
                     placeholder="Search"
-                    class="rounded-l-full border border-secondary-border
-                        shadow-inner shadow-secondary py-1 px-4 text-lg w-full
-                        focus:border-blue-500 bg-black
+                    class="rounded-l-full
+                        border
+                        border-secondary-border
+                        shadow-inner
+                        shadow-secondary
+                        py-1
+                        px-4
+                        text-lg
+                        w-full
+                        focus:border-blue-500
+                        bg-black
                         outline-none"
                     @keyup="focused=true"
                 />
                 <MagnifyIcon
-                    id="magnify"
                     @click="goToVideo"
                     class="py-2 px-4 rounded-r-full border-secondary-border border border-l-0 flex-shrink-0"
                 />
@@ -126,7 +141,9 @@
                         divide-y
                         divide-gray-100
                         rounded-lg
-                        shadow w-full dark:bg-gray-700"
+                        shadow
+                        w-full
+                        dark:bg-gray-700"
                 >
                     <ul
                         v-for="vid in videoTitles"
@@ -147,10 +164,10 @@
         </form>
         <button
             style="font-variant: small-caps; font-variant-caps: small-caps"
-            class="text-white font-bold bg-vue rounded-full h-12 w-12"
+            class="text-white font-bold bg-vue rounded-full h-10 w-10"
             @click="logIn"
         >
             {{ loginButton }}
         </button>
-    </div>
+    </header>
 </template>

@@ -1,7 +1,7 @@
 <script setup>
-    import AppWatch from '../components/AppWatch.vue';
+    import WatchLayout from '../layouts/WatchLayout.vue';
 </script>
 
 <template>
-    <AppWatch></AppWatch>
+    <WatchLayout></WatchLayout>
 </template>
