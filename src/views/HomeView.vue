@@ -1,7 +1,7 @@
 <script setup>
-    import AppHome from '../components/AppHome.vue';
+    import PageLayout from '../layouts/PageLayout.vue';
 </script>
 
 <template>
-    <AppHome></AppHome>
+    <PageLayout></PageLayout>
 </template>
