@@ -11,6 +11,7 @@
     const props = defineProps({
         videoArray: Array
     });
+
     const router = useRouter();
 
     // dynamic references:

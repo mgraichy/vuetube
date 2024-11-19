@@ -10,7 +10,8 @@
     function goToVideo(vid) {
         router.push({
             name: 'watch',
-            params: { id: vid.id }
+            params: { id: vid.id, },
+            query: { vid: JSON.stringify(vid) }
         });
     }
 </script>
@@ -23,12 +24,11 @@
             auto-rows-min
             overflow-y-auto"
     >
-        <div class="cursor-pointer aspect-video"
-            v-for="(vid, index) in videoArray"
+        <div v-for="(vid, index) in videoArray"
             :key="index"
             @click="goToVideo(vid)"
+            class="cursor-pointer aspect-video"
         >
-            <!-- <div><pre>{{ videoArray[0] }}</pre></div> -->
             <video :src="domain+vid.src" type="video/mp4"></video>
         </div>
     </div>
