@@ -41,10 +41,9 @@
         if (props.videoArray) {
             return props.videoArray.filter((objectInArray) => {
                 const t = objectInArray.title.toLowerCase();
-                const condition = t.includes(form.value.search.toLowerCase());
-                if (condition) {
-                    return objectInArray.title;
-                }
+                // return t or f; if t, .filter() returns just that element,
+                // then checks if it can return the next element also:
+                return t.includes(form.value.search.toLowerCase());
             });
         }
     }
@@ -58,11 +57,14 @@
 
     function goToVideo() {
         const searchedVid = limitVideos();
+
         if (searchedVid.length < 1) {
             clearTheBar();
             return;
         }
 
+        // searchedVid may have returned several video elements from its .filter(),
+        // in which case we'll just take the first:
         let x = 0;
         let finalId = 0;
         const lowerCaseFormSearch = form.value.search.toLowerCase();
@@ -74,11 +76,11 @@
             }
             x++;
         };
-
         clearTheBar();
         router.push({
             name: 'watch',
-            params: { id: finalId }
+            params: { id: finalId },
+            query: { vid: JSON.stringify(searchedVid) }
         });
     }
 </script>
@@ -152,7 +154,11 @@
                     >
                         <li>
                             <RouterLink
-                                :to="{name: 'watch', params: { id: vid.id }}"
+                                :to="{
+                                    name: 'watch',
+                                    params: { id: vid.id },
+                                    query: { vid: JSON.stringify(vid) }
+                                }"
                                 class="block px-4 py-2 bg-gray-100 dark:bg-gray-600 dark:text-white"
                                 @click="clearTheBar"
                             >
