@@ -1,11 +1,10 @@
 <script setup>
     import { provide, ref } from 'vue';
     import { RouterView } from 'vue-router'
+    import HeaderLayout from './layouts/HeaderLayout.vue';
+    import LeftSidebarLayout from './layouts/LeftSidebarLayout.vue';
     import { config } from './composables/oauth2-config.js';
     import { useFetch } from './composables/videos.js'
-    import Header from './components/Header.vue';
-    import LeftSidebar from './components/LeftSidebar.vue';
-
 
     const url = `${config.oauthUri}/api/videos/`;
     const { data, error } = useFetch(url);
@@ -21,9 +20,9 @@
         <p>Please refresh the page.</p>
     </div>
     <div v-else>
-        <Header :video-array="data"></Header>
+        <HeaderLayout :video-array="data"></HeaderLayout>
         <main class="grid grid-cols-[auto,1fr] flex-grow-1 overflow-auto">
-            <LeftSidebar></LeftSidebar>
+            <LeftSidebarLayout></LeftSidebarLayout>
             <RouterView />
         </main>
     </div>
