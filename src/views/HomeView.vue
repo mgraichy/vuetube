@@ -1,7 +1,8 @@
 <script setup>
-    import PageLayout from '../layouts/PageLayout.vue';
+    import HomePage from '../components/HomePage.vue';
 </script>
 
 <template>
-    <PageLayout></PageLayout>
+    <HomePage></HomePage>
 </template>
+
