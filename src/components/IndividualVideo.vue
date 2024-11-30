@@ -41,19 +41,17 @@
                 <video :src="domain + mainVideo.src" type="video/mp4" controls></video>
             </div>
         </div>
-        <div id="right-sidebar" class="flex-col"> <!-- grid grid-cols-[auto,.5fr] -->
-            <div class="flex">
-                <div
-                    v-for="(vid, index) in separateSidebarVideos"
-                    :key="index"
-                    @click="goToVideo(vid)"
-                    class="cursor-pointer aspect-video"
-                >
-                    <!-- <div class="border-2 border-white border-solid"> -->
-                        <video :src="domain + vid.src" type="video/mp4"></video>
-                    <!-- </div> -->
-                    <div>HEY</div>
+        <div id="right-sidebar" class="flex-col">
+            <div
+                v-for="(vid, index) in separateSidebarVideos"
+                :key="index"
+                @click="goToVideo(vid)"
+                class="flex cursor-pointer"
+            >
+                <div class="aspect-video border-2 border-white border-solid">
+                    <video :src="domain + vid.src" type="video/mp4"></video>
                 </div>
+                <div>HEY</div>
             </div>
         </div>
     </div>
