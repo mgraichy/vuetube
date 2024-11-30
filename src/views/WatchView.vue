@@ -1,7 +1,7 @@
 <script setup>
-    import WatchLayout from '../layouts/WatchLayout.vue';
+    import IndividualVideoLayout from '../layouts/IndividualVideoLayout.vue';
 </script>
 
 <template>
-    <WatchLayout></WatchLayout>
+    <IndividualVideoLayout class="border-2 border-solid border-green-700"></IndividualVideoLayout>
 </template>

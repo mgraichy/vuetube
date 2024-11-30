@@ -21,10 +21,6 @@
         mainVideo.value = vid;
     }
 
-    // for the back / forward buttons, we have to watch()
-    // because the vue router does not automatically trigger
-    // a component re-render unless explicitly instructed
-    // (this is the explicit instruction):
     watch(
         () => route.query.vid,
         (newMainVid) => {
@@ -45,15 +41,18 @@
                 <video :src="domain + mainVideo.src" type="video/mp4" controls></video>
             </div>
         </div>
-        <div class="flex-col">
-            <div
-                v-for="(vid, index) in separateSidebarVideos"
-                :key="index"
-                @click="goToVideo(vid)"
-                class="cursor-pointer aspect-video"
-            >
-                <div class="border-2 border-white border-solid">
-                    <video :src="domain + vid.src" type="video/mp4"></video>
+        <div id="right-sidebar" class="flex-col"> <!-- grid grid-cols-[auto,.5fr] -->
+            <div class="flex">
+                <div
+                    v-for="(vid, index) in separateSidebarVideos"
+                    :key="index"
+                    @click="goToVideo(vid)"
+                    class="cursor-pointer aspect-video"
+                >
+                    <!-- <div class="border-2 border-white border-solid"> -->
+                        <video :src="domain + vid.src" type="video/mp4"></video>
+                    <!-- </div> -->
+                    <div>HEY</div>
                 </div>
             </div>
         </div>

@@ -1,0 +1,180 @@
+/* @import "normalize.css"; */
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #000;
+    color: #fff;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+    display: block;
+}
+
+img,
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+.auth-header {
+    display: flex;
+    align-content: center;
+    background-color: #000;
+    border: #42b883 2px solid;
+    margin: 32px;
+}
+
+.auth-header {
+    justify-content: flex-end;
+    margin-top: 48px;
+    gap: 1rem;
+}
+
+/* Forms (login, register): */
+html #vuetube .outer-grid,
+body .outer-grid {
+    display: grid;
+    place-items: center;
+    height: 90vh;
+    height: 90svh;
+}
+
+:root {
+    --vue-color: rgb(66, 184, 131);
+}
+
+
+.bold {
+    font-weight: 700;
+}
+
+.vue-green {
+    color: var(--vue-color);
+}
+
+.align-mid {
+    align-self: center;
+    align-items: center;
+    align-content: center;
+}
+
+.justify-left {
+    justify-content: flex-start;
+}
+
+.form-grid {
+    display: grid;
+    /* border: 3px blue solid; */
+}
+
+.form-flex {
+    display: flex;
+    justify-content: space-evenly;/*flex-start;/*space-between;*/
+    align-content: center;
+}
+
+.form-input-label {
+    margin-top: 1rem;
+    margin-bottom: .5rem;
+}
+
+.form-input {
+    background-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(209, 213, 219);
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color: rgb(209, 213, 219);
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right-color: rgb(209, 213, 219);
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-top-color: rgb(209, 213, 219);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+    box-sizing: border-box;
+    color: rgb(17, 24, 39);
+    font-feature-settings: normal;
+    font-size: 16px;
+    font-variation-settings: normal;
+    font-weight: 400;
+    line-height: 24px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 4px;
+    padding-bottom: 8px;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 8px;
+    tab-size: 4;
+}
+
+.laravel-btn {
+    align-items: center;
+    appearance: button;
+    background-color: rgb(31, 41, 55);
+    background-image: none;
+    border-bottom-color: rgba(0, 0, 0, 0);
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right-color: rgba(0, 0, 0, 0);
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-top-color: rgba(0, 0, 0, 0);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    box-sizing: border-box;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    display: flex;
+    font-family: Figtree, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+    font-feature-settings: normal;
+    font-size: 12px;
+    font-variation-settings: normal;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    line-height: 16px;
+    margin-bottom: 0px;
+    margin-inline-start: 16px;
+    margin-left: 16px;
+    margin-right: 0px;
+    margin-top: 0px;
+    padding-bottom: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    tab-size: 4;
+    text-transform: uppercase;
+    transition-duration: 0.15s;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
