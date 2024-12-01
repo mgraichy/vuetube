@@ -36,8 +36,9 @@
 
 <template>
     <!-- <div v-if="videoArray" class="grid grid-cols-[.72fr.28fr] overflow-y-auto"> -->
-    <div v-if="videoArray" class="xl:flex overflow-y-auto">
-        <div class="cursor-pointer aspect-video basis-full">
+    <div v-if="videoArray" class="grid grid-cols-[.72fr.28fr] overflow-y-auto">
+
+        <div class="cursor-pointer aspect-video">
             <video class="min-w-full h-auto block" :src="domain + mainVideo.src" type="video/mp4" controls></video>
         </div>
 
@@ -48,6 +49,7 @@
                 @click="goToVideo(vid)"
                 class="flex cursor-pointer"
             >
+                <!-- <div class="aspect-video border-2 border-white border-solid"> -->
                 <div class="w-full h-full aspect-video cursor-pointer border-2 border-white border-solid">
                     <video width="340" :src="domain + vid.src" type="video/mp4"></video>
                 </div>
@@ -59,11 +61,22 @@
                         <div class="text-xs mb-1 text-gray-300 cursor-pointer">{{ vid.views }} views • {{ formatTimeAgo(new Date(vid.date)) }}</div>
                     </div>
                 </div>
-            </div>
 
+                <!-- <div class="flex text-[.72rem]">
+                    <div class="flex">
+                        <div>HEY =BLARGH</div>
+                    </div>
+                    <div>HEY</div>
+                    <div>HEY</div>
+                    <div>HEY</div>
+                    <div>HEY</div>
+                    <div>HEY</div>
+                    <div>HEY</div>
+                    <div>HEY</div>
+                </div> -->
+            </div>
         </div>
 
-    </div>
-
+</div>
 </template>
 
