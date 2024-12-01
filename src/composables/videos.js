@@ -6,6 +6,7 @@ function getRequest(method = 'get') {
     return {
         headers: {
             Accept: 'application/json, text/plain, */*',
+            Authorization: 'Bearer ' + config.accessTokenSessionStorage,
             'Content-Type': 'application/json',
             Origin: config.redirectUri,
         },

@@ -35,12 +35,12 @@
 </script>
 
 <template>
-    <div v-if="videoArray" class="grid grid-cols-[auto,1fr] flex-grow-1 overflow-y-auto">
-        <div class="flex">
-            <div class="cursor-pointer aspect-video">
-                <video :src="domain + mainVideo.src" type="video/mp4" controls></video>
-            </div>
+    <div v-if="videoArray" class="grid grid-cols-[.72fr.28fr] overflow-y-auto">
+
+        <div class="cursor-pointer aspect-video">
+            <video class="min-w-full h-auto block" :src="domain + mainVideo.src" type="video/mp4" controls></video>
         </div>
+
         <div id="right-sidebar" class="flex-col">
             <div
                 v-for="(vid, index) in separateSidebarVideos"
@@ -51,8 +51,21 @@
                 <div class="aspect-video border-2 border-white border-solid">
                     <video :src="domain + vid.src" type="video/mp4"></video>
                 </div>
-                <div>HEY</div>
+                <div class="flex text-[.72rem]">
+                    <div class="flex">
+                        <div>HEY =BLARGH</div>
+                    </div>
+                    <div>HEY</div>
+                    <div>HEY</div>
+                    <div>HEY</div>
+                    <div>HEY</div>
+                    <div>HEY</div>
+                    <div>HEY</div>
+                    <div>HEY</div>
+                </div>
             </div>
         </div>
-    </div>
+
+</div>
 </template>
+

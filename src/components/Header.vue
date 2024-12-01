@@ -10,7 +10,7 @@
 
     // Static props:
     const props = defineProps({
-        videoArray: Array
+        videoArray: Array|Object
     });
 
     const router = useRouter();
@@ -35,6 +35,7 @@
             loginButton.value = 'Login';
             sessionStorage.removeItem('access_token');
             accessToken = null;
+            window.location.replace('/');
         }
     }
 
