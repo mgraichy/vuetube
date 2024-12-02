@@ -6,7 +6,6 @@
     import Header from './components/Header.vue';
     import LeftSidebar from './components/LeftSidebar.vue';
 
-
     const url = `${config.oauthUri}/api/videos/`;
     const { data, error } = useFetch(url);
 
@@ -20,7 +19,7 @@
         <p>Error encountered: {{ error.message }}</p>
         <p>Please refresh the page.</p>
     </div>
-    <div v-else>
+    <div v-else class="p-0 m-0 h-svh flex flex-col overflow-hidden">
         <Header :video-array="data"></Header>
         <main class="grid grid-cols-[auto,1fr] flex-grow-1 overflow-auto">
             <LeftSidebar></LeftSidebar>
