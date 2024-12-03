@@ -1,5 +1,5 @@
 <script setup>
-    import { computed, inject, ref, watch } from 'vue';
+    import { computed, inject, ref, watch, watchEffect } from 'vue';
     import { useRoute, useRouter } from 'vue-router';
     import { config } from '../composables/oauth2-config.js';
     import { useFetch } from '../composables/videos.js';
@@ -10,10 +10,11 @@
     const route = useRoute();
     const router = useRouter();
 
+    let comments = ref([]);
+    let commentsError = ref(null);
     const queryVid = JSON.parse(route.query.vid || '{}');
     const mainVideo = ref(queryVid);
-    const urlComments = `${config.oauthUri}/api/comments?id=${queryVid.id}`;
-    const { data: comments, error: commentsError } = useFetch(urlComments)
+    const urlComments = `${config.oauthUri}/api/comments`;
 
     function goToVideo(vid) {
         router.push({
@@ -24,6 +25,7 @@
 
         // Update mainVideo without modifying the videoArray:
         mainVideo.value = vid;
+        goFetch(vid.id);
     }
 
     watch(
@@ -33,12 +35,31 @@
         }
     );
 
+    watchEffect(async () => {
+        // if ()
+        // const { data, error } = useFetch(`${urlComments}?id=2`);
+        // comments.value = data.value;
+        // if (comments.value) {
+        //     console.log('Comments:', comments.value[0]);
+        // } else {
+        //     console.log('WTF???');
+        // }
+    });
+
     const separateSidebarVideos = computed(() => {
         if (videoArray) {
             // Exclude mainVideo from sidebar:
             return videoArray.value.filter(video => video.id !== mainVideo.value.id);
         }
     });
+
+    function goFetch(id) {
+        const { data, error } = useFetch(`${urlComments}?id=${id}`);
+        comments.value = data;
+        console.log(comments.value);
+        commentsError.value = error;
+    }
+    goFetch(queryVid.id);
 </script>
 
 <template>
@@ -50,8 +71,49 @@
             </div>
 
             <div class="flex border-2 border-solid border-green-400">
-                <div>BACKGROUND ON VID</div>
+                <div class="bg-[#3F3F3F] rounded-lg w-full p-3 text-white">
+                    <div class="text-white text-lg font-extrabold">{{ mainVideo.views }}</div>
+                    <div class="text-sm font-extrabold mb-6">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    </div>
+                    <div class="text-sm font-extrabold">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                    </div>
+                </div>
             </div>
+
+            <div class="flex gap">
+                <div>
+                    <div class="rounded-logo">{{ mainVideo.initials }}</div>
+                </div>
+                <div class="flex fcol">
+                    <div class="bold" style="font-size: 1.28rem;">{{ mainVideo.title }}</div>
+                    <div class="text-secondary-text text-sm">{{ mainVideo.name }}</div>
+                    <div class="small-text">{{ mainVideo.views }} views • {{ formatTimeAgo(new Date(mainVideo.date)) }}</div>
+                </div>
+            </div>
+
+            <div class="flex-glow gap pad-xy">
+                <div class="bold margin-x" style="font-size: 1.1rem;">{{ mainVideo.views }} views • {{ formatTimeAgo(new Date(mainVideo.date)) }}</div>
+                <div class="f-item-top text-sm margin-x">{{ mainVideo.comment }}</div>
+                <div class="f-item-top text-sms margin-x">{{ mainVideo.comment }}</div>
+            </div>
+
+            <div v-if="comments" class="flex-comments"
+                v-for="(comment, index) in comments"
+                    :key="index"
+            >
+                <div v-if="comment" class="flex gap">
+                    <img class="rounded-pics ftop"
+                        :src="comment.picture"
+                    />
+                    <div class="flex fcol ftop">
+                        <div class="bold">{{ comment.name }} • {{ formatTimeAgo(new Date(comment.date)) }}</div>
+                        <div class="f-item-top text-secondary-text text-sm">{{ comment.comment }}</div>
+                    </div>
+                </div>
+            </div>
+
 
             <div id="right-sidebar-small-screens" class="lg:hidden ml-2 border-yellow-400 border-solid border-2">
                 <div
@@ -72,8 +134,8 @@
                 </div>
             </div>
 
-            <div v-if="!commentsError">
-                <div>DATA COMMENTS: {{ comments }}</div>
+            <div v-if="comments">
+                <div>DATA COMMENTS: {{ comments.value[0] }}</div>
             </div>
 
         </div>
