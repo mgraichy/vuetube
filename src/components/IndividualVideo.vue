@@ -10,10 +10,18 @@
     const route = useRoute();
     const router = useRouter();
 
+    const comments = ref([]);
+    const commentsError = ref({});
     const queryVid = JSON.parse(route.query.vid || '{}');
     const mainVideo = ref(queryVid);
-    const urlComments = `${config.oauthUri}/api/comments?id=${queryVid.id}`;
-    const { data: comments, error: commentsError } = useFetch(urlComments)
+    const urlComments = `${config.oauthUri}/api/comments`;
+
+    function goFetch(id) {
+        const { data, error } = useFetch(`${urlComments}?id=${id}`);
+        comments.value = data;
+        commentsError.value = error;
+    }
+    goFetch(queryVid.id);
 
     function goToVideo(vid) {
         router.push({
@@ -24,6 +32,7 @@
 
         // Update mainVideo without modifying the videoArray:
         mainVideo.value = vid;
+        goFetch(vid.id);
     }
 
     watch(
@@ -72,7 +81,7 @@
                 </div>
             </div>
 
-            <div v-if="!commentsError">
+            <div>
                 <div>DATA COMMENTS: {{ comments }}</div>
             </div>
 
