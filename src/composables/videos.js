@@ -2,8 +2,8 @@ import { ref, watchEffect, toValue } from 'vue';
 import { config } from './oauth2-config.js';
 
 
-function getRequest(method = 'get') {
-    return {
+function getRequest(method, payload) {
+    const standardRequest = {
         headers: {
             Accept: 'application/json, text/plain, */*',
             Authorization: 'Bearer ' + config.accessTokenSessionStorage,
@@ -14,12 +14,18 @@ function getRequest(method = 'get') {
         credentials: 'include',
         method: method,
     };
+
+    if (method == 'post' && payload) {
+        standardRequest.body = payload;
+    }
+
+    return standardRequest;
 }
 
-export function useFetch(url) {
+export function useFetch(url, method = 'get', payload = null) {
     const data = ref(null);
     const error = ref(null);
-    const standardRequest = getRequest();
+    const standardRequest = getRequest(method, payload);
 
 
     const fetchData = () => {
@@ -29,7 +35,10 @@ export function useFetch(url) {
 
         fetch(toValue(url), standardRequest)
             .then((res) => res.json())
-            .then((json) => (data.value = json))
+            .then((json) => {
+                data.value = json;
+                console.log('JSON:', data.value);
+            })
             .catch((err) => (error.value = err));
     }
 
