@@ -2,12 +2,12 @@
     import { provide, ref } from 'vue';
     import { RouterView } from 'vue-router'
     import { config } from './composables/oauth2-config.js';
-    import { useFetch } from './composables/videos.js'
+    import { useFetch } from './composables/videos.js';
     import Header from './components/Header.vue';
     import LeftSidebar from './components/LeftSidebar.vue';
 
-    const url = `${config.oauthUri}/api/videos/`;
-    const { data, error } = useFetch(url);
+    const urlVids = `${config.oauthUri}/api/videos/`;
+    const { data, error } = useFetch(urlVids);
 
     const toggleLeftSidebar = ref(true);
     provide('leftSidebar', toggleLeftSidebar);
