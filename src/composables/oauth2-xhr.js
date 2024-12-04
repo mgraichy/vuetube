@@ -45,6 +45,13 @@ export async function xhr() {
     const response = await fetch(url, options);
     const value = await response.json();
 
-    sessionStorage.setItem('access_token', value.access_token);
+    if (value.access_token != null) {
+        sessionStorage.setItem('access_token', value.access_token);
+    } else {
+        sessionStorage.removeItem('access_token');
+        sessionStorage.removeItem('pkce_code_verifier');
+        sessionStorage.removeItem('pkce_state');
+    }
+
     window.location.replace(config.homeUri);
 }
