@@ -7,7 +7,7 @@
     import LeftSidebar from './components/LeftSidebar.vue';
 
     const urlVids = `${config.oauthUri}/api/videos/`;
-    const videos = ref([]);
+    const videos = ref([{}]);
     goFetch(urlVids, videos);
 
     const toggleLeftSidebar = ref(true);
@@ -16,9 +16,10 @@
 </script>
 
 <template>
-    <div v-if="videosError">
-        <p>Error encountered: {{ error.message }}</p>
-        <p>Please refresh the page.</p>
+    <div v-if="(typeof videos[0].error !== 'undefined')">
+        {{ videos[0] }}
+        <p>Server is down.</p>
+        <p>Please wait a little while and then refresh the page.</p>
     </div>
     <div v-else class="p-0 m-0 h-svh flex flex-col overflow-hidden">
         <Header :video-array="videos"></Header>
