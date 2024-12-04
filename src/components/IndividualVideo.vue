@@ -1,20 +1,25 @@
 <script setup>
-    import { computed, inject, ref, watch, watchEffect } from 'vue';
+    import { computed, inject, ref, watch } from 'vue';
     import { useRoute, useRouter } from 'vue-router';
     import { config } from '../composables/oauth2-config.js';
-    import { useFetch } from '../composables/videos.js';
+    import { goFetch } from '../composables/videos.js';
     import { formatTimeAgo } from '../utils/formatTimeAgo.js';
     const domain = import.meta.env.VITE_DOMAIN;
 
     const videoArray = inject('videoArray');
+    const urlComments = `${config.oauthUri}/api/comments`;
+    const comments = ref([]);
+
     const route = useRoute();
     const router = useRouter();
 
-    let comments = ref([]);
-    let commentsError = ref(null);
     const queryVid = JSON.parse(route.query.vid || '{}');
     const mainVideo = ref(queryVid);
-    const urlComments = `${config.oauthUri}/api/comments`;
+
+    goFetch(`${urlComments}?id=${queryVid.id}`, comments);
+    console.log('comments from IndividualVideo.vue:', comments);
+    console.log('comments.value from IndividualVideo.vue:', comments.value);
+
 
     function goToVideo(vid) {
         router.push({
@@ -25,26 +30,10 @@
 
         // Update mainVideo without modifying the videoArray:
         mainVideo.value = vid;
-        goFetch(vid.id);
+        goFetch(`${urlComments}?id=${vid.id}`, comments);
+        console.log('comments from IndividualVideo.vue:', comments);
+        console.log('comments.value from IndividualVideo.vue:', comments.value);
     }
-
-    watch(
-        () => route.query.vid,
-        (newMainVid) => {
-            mainVideo.value = JSON.parse(newMainVid);
-        }
-    );
-
-    watchEffect(async () => {
-        // if ()
-        // const { data, error } = useFetch(`${urlComments}?id=2`);
-        // comments.value = data.value;
-        // if (comments.value) {
-        //     console.log('Comments:', comments.value[0]);
-        // } else {
-        //     console.log('WTF???');
-        // }
-    });
 
     const separateSidebarVideos = computed(() => {
         if (videoArray) {
@@ -53,13 +42,13 @@
         }
     });
 
-    function goFetch(id) {
-        const { data, error } = useFetch(`${urlComments}?id=${id}`);
-        comments.value = data;
-        console.log(comments.value);
-        commentsError.value = error;
-    }
-    goFetch(queryVid.id);
+    watch(
+        () => route.query.vid,
+        (newRouteQueryVid) => {
+            mainVideo.value = JSON.parse(newRouteQueryVid);
+        },
+        { immediate: true }
+    );
 </script>
 
 <template>
@@ -135,7 +124,7 @@
             </div>
 
             <div v-if="comments">
-                <div>DATA COMMENTS: {{ comments.value[0] }}</div>
+                <div>DATA COMMENTS: {{ comments[1] }}</div>
             </div>
 
         </div>
