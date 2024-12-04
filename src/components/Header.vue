@@ -23,17 +23,20 @@
     let accessToken = sessionStorage.getItem('access_token');
 
     if (accessToken == null) {
-        loginButton.value = 'vt';
+        loginButton.value = 'v';
     } else {
         loginButton.value = 'm';
     }
 
     function logIn() {
+        accessToken = sessionStorage.getItem('access_token');
         if (accessToken == null) {
             redirectToAuthorizationServer();
         } else {
-            loginButton.value = 'Login';
+            loginButton.value = 'v';
             sessionStorage.removeItem('access_token');
+            sessionStorage.removeItem('pkce_code_verifier');
+            sessionStorage.removeItem('pkce_state');
             accessToken = null;
             window.location.replace('/');
         }
