@@ -22,30 +22,22 @@ function getRequest(method, payload) {
     return standardRequest;
 }
 
-export function useFetch(url, method = 'get', payload = null) {
-    const data = ref(null);
-    const error = ref(null);
-    const standardRequest = getRequest(method, payload);
-
-
-    const fetchData = () => {
-        // reset state before fetching..
-        data.value = null;
-        error.value = null;
-
-        fetch(toValue(url), standardRequest)
-            .then((res) => res.json())
-            // .then((json) => (data.value = json))
-            .then((json) => {
-                data.value = json;
-                console.log(json);
-            })
-            .catch((err) => (error.value = err));
+export async function goFetch(url, data, method = 'get', payload = null) {
+    try {
+        const standardRequest = getRequest(method, payload);
+        const response = await fetch(url, standardRequest);
+        const json     = await response.json();
+        // json.data is an array, now that we've safely fetch()ed an object:
+        data.value = json.data;
+        // console.log('URL from XHR:', url);
+        // console.log('JSON "data.value" from XHR:', data.value);
+    } catch (error) {
+        if (typeof error !== 'undefined') {
+            const message = error.message ?? 'Fetch error';
+            data.value.push({message: message});
+        } else {
+            data.value.push({message: 'Fetch error'});
+        }
     }
-
-    watchEffect(() => {
-        fetchData();
-    });
-
-    return { data, error };
 }
+

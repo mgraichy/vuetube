@@ -73,7 +73,9 @@
         let x = 0;
         let finalId = 0;
         const lowerCaseFormSearch = form.value.search.toLowerCase();
+        console.log(searchedVid);
         for (let vid of searchedVid) {
+            console.log(vid);
             let currentTitle = vid.title.toLowerCase();
             if (currentTitle.includes(lowerCaseFormSearch)) {
                 finalId = searchedVid[x].id;
@@ -81,12 +83,12 @@
             }
             x++;
         };
-        clearTheBar();
-        router.push({
-            name: 'watch',
-            params: { id: finalId },
-            query: { vid: JSON.stringify(searchedVid) }
-        });
+        // clearTheBar();
+        // router.push({
+        //     name: 'watch',
+        //     params: { id: finalId },
+        //     query: { vid: JSON.stringify(searchedVid) }
+        // });
     }
 </script>
 
