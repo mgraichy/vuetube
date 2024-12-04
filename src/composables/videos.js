@@ -26,18 +26,23 @@ export async function goFetch(url, data, method = 'get', payload = null) {
     try {
         const standardRequest = getRequest(method, payload);
         const response = await fetch(url, standardRequest);
-        const json     = await response.json();
-        // json.data is an array, now that we've safely fetch()ed an object:
-        data.value = json.data;
-        // console.log('URL from XHR:', url);
-        // console.log('JSON "data.value" from XHR:', data.value);
-    } catch (error) {
-        if (typeof error !== 'undefined') {
-            const message = error.message ?? 'Fetch error';
-            data.value.push({message: message});
+        const json = await response.json();
+
+        if (response.ok) {
+            // 'json.data' is an array of objects,
+            // now that we've safely fetch()ed the 'json' object:
+            data.value = json.data;
         } else {
-            data.value.push({message: 'Fetch error'});
+            // array of objects:
+            data.value = [{
+                error: json.error || 'General Error',
+                status: response.status,
+            }];
         }
+    } catch (jsError) {
+        const message = jsError.message ?? 'Fetch error';
+        // array of objects:
+        data.value = [{error: message, status: 'JS Error'}];
     }
 }
 

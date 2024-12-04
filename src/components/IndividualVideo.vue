@@ -8,7 +8,7 @@
 
     const videoArray = inject('videoArray');
     const urlComments = `${config.oauthUri}/api/comments`;
-    const comments = ref([]);
+    const comments = ref([{}]);
 
     const route = useRoute();
     const router = useRouter();
@@ -31,8 +31,6 @@
         // Update mainVideo without modifying the videoArray:
         mainVideo.value = vid;
         goFetch(`${urlComments}?id=${vid.id}`, comments);
-        console.log('comments from IndividualVideo.vue:', comments);
-        console.log('comments.value from IndividualVideo.vue:', comments.value);
     }
 
     const separateSidebarVideos = computed(() => {
@@ -46,8 +44,7 @@
         () => route.query.vid,
         (newRouteQueryVid) => {
             mainVideo.value = JSON.parse(newRouteQueryVid);
-        },
-        { immediate: true }
+        }
     );
 </script>
 
