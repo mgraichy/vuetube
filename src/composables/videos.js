@@ -35,11 +35,11 @@ export function useFetch(url, method = 'get', payload = null) {
 
         fetch(toValue(url), standardRequest)
             .then((res) => res.json())
-            .then((json) => (data.value = json))
-            // .then((json) => {
-            //     data.value = json;
-            //     console.log(json);
-            // })
+            // .then((json) => (data.value = json))
+            .then((json) => {
+                data.value = json;
+                console.log(json);
+            })
             .catch((err) => (error.value = err));
     }
 
