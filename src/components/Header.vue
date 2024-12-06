@@ -52,34 +52,36 @@
 
     const videoTitles = computed(() => limitVideos());
 
-    function clearTheBar() {
+    function clearTheSearchbar() {
         focused.value = false;
         form.value.search = '';
     }
 
     function goToVideo() {
-        const searchedVid = limitVideos();
-
-        if (searchedVid.length < 1) {
-            clearTheBar();
+        if (form.value.search == '') {
             return;
         }
 
-        // searchedVid may have returned several video elements from its .filter(),
-        // in which case we'll just take the first:
-        let x = 0;
-        let finalId = 0;
+        const searchedVid = limitVideos();
+
+        if (searchedVid.length === 0) {
+            clearTheSearchbar();
+            return;
+        }
+
         const lowerCaseFormSearch = form.value.search.toLowerCase();
-        console.log(searchedVid);
-        for (let vid of searchedVid) {
-            console.log(vid);
-            let currentTitle = vid.title.toLowerCase();
-            if (currentTitle.includes(lowerCaseFormSearch)) {
-                finalId = searchedVid[x].id;
-                break;
-            }
-            x++;
-        };
+        const matchingVideo = searchedVid.find(vid =>
+            vid.title.toLowerCase().includes(lowerCaseFormSearch)
+        );
+
+        if (matchingVideo) {
+            clearTheSearchbar();
+            router.push({
+                name: 'watch',
+                params: { id: matchingVideo.id, },
+                query: { vid: JSON.stringify(matchingVideo) }
+            });
+        }
     }
 </script>
 
@@ -158,7 +160,7 @@
                                     query: { vid: JSON.stringify(vid) }
                                 }"
                                 class="block px-4 py-2 bg-gray-100 dark:bg-gray-600 dark:text-white"
-                                @click="clearTheBar"
+                                @click="clearTheSearchbar"
                             >
                                 {{ vid.title }}
                             </RouterLink>

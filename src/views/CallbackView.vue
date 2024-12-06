@@ -1,7 +1,13 @@
 <script setup>
+    import { onMounted } from 'vue';
     import { xhr } from '../composables/oauth2-xhr.js';
     import Loader from '../components/Loader.vue';
-    xhr();
+
+    onMounted(() => {
+        xhr().catch((e) => {
+            console.error('Error during OAuth2 flow:', e);
+        });
+    });
 </script>
 
 <template>
