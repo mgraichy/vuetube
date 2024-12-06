@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
+import CallbackPage from '../views/CallbackView.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,7 +18,7 @@ const router = createRouter({
         {
             path: '/callback',
             name: 'cb',
-            component: () => import('../views/CallbackView.vue'),
+            component: CallbackPage,//() => import('../views/CallbackView.vue'),
         },
         {
             path: '/:path(.*)',
