@@ -4,6 +4,7 @@
 
 @layer base {
     :root {
+        /* used in /tailwind.config.js: */
         --color-vue: 66 184 131;
     }
 }

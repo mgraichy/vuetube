@@ -8,7 +8,7 @@
 
 
 <template>
-    <LeftSidebarLayout class="mr-2 ml-1">
+    <LeftSidebarLayout class="mx-3">
         <li>
             <RouterLink
                 :to="{name: 'home'}"

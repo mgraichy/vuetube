@@ -1,7 +1,7 @@
 <script setup>
     import { inject } from 'vue';
     import { useRouter } from 'vue-router';
-    import { countTimeSincePosting } from '../utils/formatTime.js';
+    import { countTimeSincePosting } from '../composables/formatTime.js';
     const domain = import.meta.env.VITE_DOMAIN;
 
     const videoArray = inject('videoArray');

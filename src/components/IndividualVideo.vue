@@ -3,7 +3,7 @@
     import { useRoute, useRouter } from 'vue-router';
     import { config } from '../composables/oauth2-config.js';
     import { goFetch } from '../composables/videos.js';
-    import { countTimeSincePosting } from '../utils/formatTime.js';
+    import { countTimeSincePosting } from '../composables/formatTime.js';
     const domain = import.meta.env.VITE_DOMAIN;
 
     const videoArray = inject('videoArray');
