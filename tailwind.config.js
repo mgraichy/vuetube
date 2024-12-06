@@ -7,10 +7,10 @@ export default {
   theme: {
     extend: {
       colors: {
+        // defined in src/assets/main.css:
         vue: 'rgb(var(--color-vue))',
       },
     },
   },
   plugins: [],
 }
-

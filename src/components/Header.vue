@@ -84,7 +84,7 @@
 </script>
 
 <template>
-    <HeaderLayout class="mb-2">
+    <HeaderLayout class="m-2">
         <div class="flex flex-row">
             <button
                 class="hover:bg-slate-600
