@@ -11,7 +11,7 @@ const DIVISIONS = [
     { amount: Number.POSITIVE_INFINITY, name: "years" },
 ];
 
-export function formatTimeAgo(date) {
+export function countTimeSincePosting(date) {
     let duration = (date - new Date().getTime()) / 1000
 
     for (let i = 0; i < DIVISIONS.length; i++) {

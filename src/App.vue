@@ -17,9 +17,9 @@
 
 <template>
     <div v-if="(typeof videos[0].error !== 'undefined')">
-        {{ videos[0] }}
+        <!-- THE LOADER!!!! THAT'S IT!!!!! -->
         <p>Server is down.</p>
-        <p>Please wait a little while and then refresh the page.</p>
+        <p>Please wait a little while before refreshing the page.</p>
     </div>
     <div v-else class="p-0 m-0 h-svh flex flex-col overflow-hidden">
         <Header :video-array="videos"></Header>
