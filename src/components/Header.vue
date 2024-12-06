@@ -15,7 +15,6 @@
 
     const router = useRouter();
 
-    // dynamic references:
     const loginButton = ref('');
     const focused = ref(false);
     const form = ref({search: ''});
@@ -46,8 +45,6 @@
         if (props.videoArray) {
             return props.videoArray.filter((objectInArray) => {
                 const t = objectInArray.title.toLowerCase();
-                // return t or f; if t, .filter() returns just that element,
-                // then checks if it can return the next element also:
                 return t.includes(form.value.search.toLowerCase());
             });
         }
@@ -83,12 +80,6 @@
             }
             x++;
         };
-        // clearTheBar();
-        // router.push({
-        //     name: 'watch',
-        //     params: { id: finalId },
-        //     query: { vid: JSON.stringify(searchedVid) }
-        // });
     }
 </script>
 

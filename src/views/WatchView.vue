@@ -3,5 +3,5 @@
 </script>
 
 <template>
-    <IndividualVideo class="border-2 border-solid border-green-700"></IndividualVideo>
+    <IndividualVideo></IndividualVideo>
 </template>

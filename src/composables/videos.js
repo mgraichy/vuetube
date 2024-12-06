@@ -30,9 +30,9 @@ export async function goFetch(url, data, method = 'get', payload = null) {
 
         if (response.ok) {
             // 'json.data' is an array of objects,
-            // now that we've safely fetch()ed the 'json' object:
+            // now that we've safely fetch()ed the outermost 'json' object:
             data.value = json.data;
-        } else {
+        } else if (response.status != 401) {
             // array of objects:
             data.value = [{
                 error: json.error || 'General Error',

@@ -1,7 +1,7 @@
 <script setup>
     import { inject } from 'vue';
     import { useRouter } from 'vue-router';
-    import { formatTimeAgo } from '../utils/formatTimeAgo.js';
+    import { countTimeSincePosting } from '../utils/formatTime.js';
     const domain = import.meta.env.VITE_DOMAIN;
 
     const videoArray = inject('videoArray');
@@ -30,7 +30,17 @@
                 @click="goToVideo(vid)"
                 class="cursor-pointer aspect-video"
             >
-                <video :src="domain+vid.src" type="video/mp4"></video>
+                <video
+                    class="max-w-full
+                        h-auto
+                        rounded-md
+                        transition:all
+                        duration-1000
+                        hover:rounded-none
+                    "
+                    :src="domain+vid.src"
+                    type="video/mp4"
+                ></video>
             </div>
         </div>
     </div>
