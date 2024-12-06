@@ -19,7 +19,7 @@
 <template>
     <div class="p-0 m-0 h-svh flex flex-col overflow-hidden">
         <Header :video-array="videos"></Header>
-        <div v-if="(typeof videos[0].error !== 'undefined')">
+        <div v-if="(videos[0]?.error !== undefined)">
             <Loader></Loader>
         </div>
         <main class="grid grid-cols-[auto,1fr] flex-grow-1 overflow-auto">
