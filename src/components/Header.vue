@@ -22,7 +22,7 @@
     let accessToken = sessionStorage.getItem('access_token');
 
     if (accessToken == null) {
-        loginButton.value = 'v';
+        loginButton.value = 'login';
     } else {
         loginButton.value = 'm';
     }
@@ -32,11 +32,11 @@
         if (accessToken == null) {
             redirectToAuthorizationServer();
         } else {
-            loginButton.value = 'v';
             sessionStorage.removeItem('access_token');
             sessionStorage.removeItem('pkce_code_verifier');
             sessionStorage.removeItem('pkce_state');
             accessToken = null;
+            loginButton.value = 'login';
             window.location.replace('/');
         }
     }
@@ -170,6 +170,7 @@
             </div>
         </form>
         <button
+            id="login"
             style="font-variant: small-caps; font-variant-caps: small-caps"
             class="text-white font-bold bg-vue rounded-full h-10 w-10"
             @click="logIn"

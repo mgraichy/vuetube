@@ -6,7 +6,7 @@ function getRequest(method, payload) {
     const standardRequest = {
         headers: {
             Accept: 'application/json, text/plain, */*',
-            Authorization: 'Bearer ' + config.accessTokenSessionStorage,
+            Authorization: 'Bearer ' + config.accessTokensessionStorage,
             'Content-Type': 'application/json',
             Origin: config.redirectUri,
         },

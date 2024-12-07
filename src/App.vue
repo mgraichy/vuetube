@@ -1,13 +1,13 @@
 <script setup>
-    import { onMounted, provide, ref } from 'vue';
+    import { provide, ref } from 'vue';
     import { RouterView } from 'vue-router'
     import { config } from './composables/oauth2-config.js';
     import { goFetch } from './composables/videos.js';
-    import { redirectToAuthorizationServer } from './composables/oauth2-redirect.js';
     import Header from './components/Header.vue';
     import LeftSidebar from './components/LeftSidebar.vue';
     import Loader from './components/Loader.vue';
 
+    const accessToken = sessionStorage.getItem('access_token');
     const urlVids = `${config.oauthUri}/api/videos/`;
     const videos = ref([{}]);
     goFetch(urlVids, videos);
@@ -15,13 +15,6 @@
     const toggleLeftSidebar = ref(true);
     provide('leftSidebar', toggleLeftSidebar);
     provide('videoArray', videos);
-
-    onMounted(() => {
-        const accessToken = sessionStorage.getItem('access_token');
-        if (accessToken == null) {
-            redirectToAuthorizationServer();
-        }
-    });
 </script>
 
 <template>
@@ -37,3 +30,9 @@
         </main>
     </div>
 </template>
+
+<style>
+    #login {
+        visibility: visible;
+    }
+</style>
