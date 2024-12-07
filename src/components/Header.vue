@@ -7,10 +7,11 @@
     import HeaderLayout from '../layouts/HeaderLayout.vue';
 
     const leftSidebar = inject('leftSidebar');
+    const pathname = inject('pathname');
 
     // Static props:
     const props = defineProps({
-        videoArray: Array|Object
+        videoStringArray: Array|Object
     });
 
     const router = useRouter();
@@ -42,8 +43,8 @@
     }
 
     function limitVideos() {
-        if (props.videoArray) {
-            return props.videoArray.filter((objectInArray) => {
+        if (props.videoStringArray) {
+            return props.videoStringArray.filter((objectInArray) => {
                 const t = objectInArray.title.toLowerCase();
                 return t.includes(form.value.search.toLowerCase());
             });
@@ -170,9 +171,9 @@
             </div>
         </form>
         <button
-            id="login"
-            style="font-variant: small-caps; font-variant-caps: small-caps"
-            class="text-white font-bold bg-vue rounded-full h-10 w-10"
+            style="font-variant: small-caps; font-variant-caps: small-caps;"
+            :style="pathname != '/callback' ? 'visibility: visible;' : 'visibility: hidden;'"
+            class="font-bold bg-vue rounded-full h-10 w-10"
             @click="logIn"
         >
             {{ loginButton }}
