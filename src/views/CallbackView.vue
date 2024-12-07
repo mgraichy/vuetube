@@ -3,13 +3,18 @@
     import { xhr } from '../composables/oauth2-xhr.js';
     import Loader from '../components/Loader.vue';
 
-    onMounted(() => {
-        xhr().catch((e) => {
-            console.error('Error during OAuth2 flow:', e);
-        });
-    });
+    const hiddenHeaderButton = document.getElementById('login');
+    hiddenHeaderButton.classList.add('hide-me');
+
+    onMounted(() => xhr());
 </script>
 
 <template>
     <Loader></Loader>
 </template>
+
+<style>
+    #login.hide-me {
+        visibility: hidden;
+    }
+</style>

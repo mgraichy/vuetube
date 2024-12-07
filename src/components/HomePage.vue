@@ -7,6 +7,9 @@
     const videoArray = inject('videoArray');
     const router = useRouter();
 
+    const hiddenHeaderButton = document.getElementById('login');
+    hiddenHeaderButton.classList.remove('hide-me');
+
     function goToVideo(vid) {
         router.push({
             name: 'watch',
@@ -45,3 +48,9 @@
         </div>
     </div>
 </template>
+
+<style>
+    #login {
+        visibility: visible;
+    }
+</style>

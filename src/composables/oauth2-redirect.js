@@ -3,7 +3,7 @@ import { config } from './oauth2-config.js';
 // REDIRECT to /oauth/authorize:
 function stringOfRandomBytes(numberOfBytes = 64) {
     const array = new Uint8Array(numberOfBytes);
-    // getRandomValues() works by reference (MDN docs, 'in place'):
+    // getRandomValues() works by reference (MDN docs say 'in place'):
     window.crypto.getRandomValues(array);
     const hexOutput = 16;
     return Array.from(
@@ -44,7 +44,7 @@ export async function redirectToAuthorizationServer() {
     const codeChallengePromise = await pkceChallengeFromVerifier(codeVerifier);
 
     // https://laravel.com/docs/11.x/passport#code-grant-pkce-redirecting-for-authorization:
-    const url =  new URL(config.oauthAuthorize);
+    const oauthUrl =  new URL(config.oauthAuthorize);
     const queryObject = {
         response_type: config.responseType,
         client_id: config.clientId,
@@ -57,9 +57,8 @@ export async function redirectToAuthorizationServer() {
 
     const queryParams = new URLSearchParams(queryObject);
     queryParams.forEach((v, k) => {
-        url.searchParams.append(k, v);
+        oauthUrl.searchParams.append(k, v);
     });
 
-    // Redirect to the authorization server
-    window.location = url.href;
+    window.location = oauthUrl.href;
 }
