@@ -38,27 +38,30 @@ export async function goFetch(url, data, method = 'get', payload = null) {
         // 'json.data' is an array of objects,
         // now that we've safely fetch()ed the outermost 'json' object:
         data.value = json.data;
+        console.log('data.value:',data.value);
     } catch (jsError) {
         const message = jsError.message ?? 'Fetch error';
         // array of objects:
-        data.value = [{error: message, status: 'JS Error'}];
+        data.value = [{error: message, status: 'JS Error somewhere inside goFetch()'}];
+        console.log('data.value:',data.value);
     }
 }
 
-export async function goFetchBlob(url, data, method = 'get', payload = null) {
-    console.log('url',url, 'data',data)
-    const standardRequest = getRequest(method, payload);
-    const response = await fetch(url, standardRequest);
-    const json = await response.json();
-    if (!response.ok) {
-        console.log('HEY!');
+export async function goFetchVideo(url, id, method = 'get', payload = null) {
+    try {
+        const standardRequest = getRequest(method, payload);
+        const response = await fetch(url, standardRequest);
+        const blob = await response.blob();
+        // Downloaded the correct files:
+        // console.log(blob);
+        const source = document.getElementById(id);
+        const contentsOfBlob = URL.createObjectURL(blob);
+        // console.log('contentsOfBlob:', contentsOfBlob);
+        source.setAttribute('src', contentsOfBlob);
+        // reload <video>:
+        source.parentElement.load();
+    } catch (jsError) {
+        const message = jsError ?? 'Fetch error';
+        console.log('error message:', message);
     }
-    data.value = json.data;
-    // const base64 = json.data;
-    // data.value = atob(base64);
-    // console.log('base64:',base64, 'data.value:', data.value);
-    // const decoded = atob(base64);
-    // const url2 = URL.createObjectURL(json);
-    // document.querySelector('video').src = url2;
-    // data.value = URL.createObjectURL(decoded);
 }
