@@ -1,14 +1,14 @@
 <script setup>
-    import { inject, ref } from 'vue';
+    import { inject, nextTick, ref } from 'vue';
     import { useRouter } from 'vue-router';
     import { config } from '../composables/oauth2-config.js';
-    import { goFetchBlob } from '../composables/videos.js';
+    import { goFetchVideo } from '../composables/videos.js';
     import { countTimeSincePosting } from '../composables/formatTime.js';
-    // const domain = import.meta.env.VITE_DOMAIN;
 
     const videoStringArray = inject('videoStringArray');
     const videoUrl = `${config.oauthUri}/api/videos`;
-    const videos = ref([{}]);
+
+    const loaded = ref(false);
 
     const router = useRouter();
 
@@ -20,21 +20,19 @@
         });
     }
 
-    // function go(vid) {
-    //     //goFetchBlob(videoUrl?file=${vid.src}, ${videos})
-    //     console.log(vid);
-    // }
+    function getVideoBlob(vid, id) {
+        const url = `${videoUrl}?file=${vid.src}`;
+        goFetchVideo(url, id);
+    }
 </script>
 
 <template>
-    <div class="grid grid-cols-[auto,1fr] flex-grow-1 overflow-auto">
-        <!-- {{ videos['bday-bot-540p.mp4'] }} -->
+    <div class="grid grid-cols-[auto,1fr] flex-grow-1 overflow-y-auto">
         <div v-if="videoStringArray"
             class="grid
                 gap-4
                 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]
-                auto-rows-min
-                overflow-y-auto"
+                auto-rows-min"
         >
             <div v-for="(vid, index) in videoStringArray"
                 :key="index"
@@ -42,6 +40,7 @@
                 class="cursor-pointer aspect-video"
             >
                 <video
+                    crossorigin="use-credentials"
                     class="max-w-full
                         h-auto
                         rounded-md
@@ -50,9 +49,11 @@
                         hover:rounded-none
                     "
                 >
-                    <source src="https://dev.home/index.php" type="video/mp4">
-                    <!-- <source :src="`data:video/mp4;base64, goFetchBlob(videoUrl?file=${vid.src}, ${videos})`"> -->
-                    <!-- <source :src="`data:video/mp4;base64, ${go(vid)}`"> -->
+                    <source
+                        :id="`source-${index}`"
+                        :src="getVideoBlob(vid, `source-${index}`)"
+                        type="video/mp4"
+                    >
                     Your browser does not support the video tag.
                 </video>
                 <div class="flex m-2">
@@ -65,7 +66,7 @@
                         <div class="text-xs mb-1 w-full text-gray-300 cursor-pointer">{{ vid.views }} views • {{ countTimeSincePosting(new Date(vid.date)) }}</div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- end v-for -->
         </div>
     </div>
 </template>

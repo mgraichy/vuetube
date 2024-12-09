@@ -41,24 +41,21 @@ export async function goFetch(url, data, method = 'get', payload = null) {
     } catch (jsError) {
         const message = jsError.message ?? 'Fetch error';
         // array of objects:
-        data.value = [{error: message, status: 'JS Error'}];
+        data.value = [{error: message, status: 'JS Error somewhere inside goFetch()'}];
     }
 }
 
-export async function goFetchBlob(url, data, method = 'get', payload = null) {
-    console.log('url',url, 'data',data)
-    const standardRequest = getRequest(method, payload);
-    const response = await fetch(url, standardRequest);
-    const json = await response.json();
-    if (!response.ok) {
-        console.log('HEY!');
+export async function goFetchVideo(url, id, method = 'get', payload = null) {
+    try {
+        const standardRequest = getRequest(method, payload);
+        const response = await fetch(url, standardRequest);
+        const blob = await response.blob();
+        const source = document.getElementById(id);
+        const contentsOfBlob = URL.createObjectURL(blob);
+        source.setAttribute('src', contentsOfBlob);
+        source.parentElement.load();
+    } catch (jsError) {
+        const message = jsError ?? 'Fetch error';
+        console.log('error message:', message);
     }
-    data.value = json.data;
-    // const base64 = json.data;
-    // data.value = atob(base64);
-    // console.log('base64:',base64, 'data.value:', data.value);
-    // const decoded = atob(base64);
-    // const url2 = URL.createObjectURL(json);
-    // document.querySelector('video').src = url2;
-    // data.value = URL.createObjectURL(decoded);
 }
