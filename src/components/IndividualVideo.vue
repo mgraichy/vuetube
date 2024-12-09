@@ -6,7 +6,7 @@
     import { countTimeSincePosting } from '../composables/formatTime.js';
     const domain = import.meta.env.VITE_DOMAIN;
 
-    const videoArray = inject('videoArray');
+    const videoStringArray = inject('videoStringArray');
     const urlComments = `${config.oauthUri}/api/comments`;
     const comments = ref([{}]);
 
@@ -25,15 +25,15 @@
             query: { vid: JSON.stringify(vid) },
         });
 
-        // Update mainVideo without modifying the videoArray:
+        // Update mainVideo without modifying the videoStringArray:
         mainVideo.value = vid;
         goFetch(`${urlComments}?id=${vid.id}`, comments);
     }
 
     const separateSidebarVideos = computed(() => {
-        if (videoArray) {
+        if (videoStringArray) {
             // Exclude mainVideo from sidebar:
-            return videoArray.value.filter(video => video.id !== mainVideo.value.id);
+            return videoStringArray.value.filter(video => video.id !== mainVideo.value.id);
         }
     });
 
@@ -46,7 +46,7 @@
 </script>
 
 <template>
-    <div v-if="videoArray" class="grid lg:grid-cols-[4fr_1fr] mr-2 lg:mr-0 overflow-y-auto">
+    <div v-if="videoStringArray" class="grid lg:grid-cols-[4fr_1fr] mr-2 lg:mr-0 overflow-y-auto">
         <div> <!--Start grid column 1 -->
 
             <div class="justify-self-center cursor-pointer aspect-video">
