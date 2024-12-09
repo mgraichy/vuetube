@@ -2,7 +2,7 @@
     import { computed, inject, ref, watch } from 'vue';
     import { useRoute, useRouter } from 'vue-router';
     import { config } from '../composables/oauth2-config.js';
-    import { goFetch } from '../composables/videos.js';
+    import { goFetch, goFetchVideo } from '../composables/videos.js';
     import { countTimeSincePosting } from '../composables/formatTime.js';
     const domain = import.meta.env.VITE_DOMAIN;
 
@@ -36,6 +36,11 @@
             return videoStringArray.value.filter(video => video.id !== mainVideo.value.id);
         }
     });
+
+    function getVideoBlob(vid, id) {
+        const url = `${videoUrl}?file=${vid.src}`;
+        goFetchVideo(url, id);
+    }
 
     watch(
         () => route.query.vid,

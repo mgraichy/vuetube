@@ -1,14 +1,14 @@
 <script setup>
-    import { inject, ref } from 'vue';
+    import { inject, nextTick, ref } from 'vue';
     import { useRouter } from 'vue-router';
     import { config } from '../composables/oauth2-config.js';
     import { goFetchVideo } from '../composables/videos.js';
     import { countTimeSincePosting } from '../composables/formatTime.js';
-    // const domain = import.meta.env.VITE_DOMAIN;
 
     const videoStringArray = inject('videoStringArray');
     const videoUrl = `${config.oauthUri}/api/videos`;
-    const videos = ref([{}]);
+
+    const loaded = ref(false);
 
     const router = useRouter();
 

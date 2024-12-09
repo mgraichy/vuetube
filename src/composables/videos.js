@@ -38,12 +38,10 @@ export async function goFetch(url, data, method = 'get', payload = null) {
         // 'json.data' is an array of objects,
         // now that we've safely fetch()ed the outermost 'json' object:
         data.value = json.data;
-        console.log('data.value:',data.value);
     } catch (jsError) {
         const message = jsError.message ?? 'Fetch error';
         // array of objects:
         data.value = [{error: message, status: 'JS Error somewhere inside goFetch()'}];
-        console.log('data.value:',data.value);
     }
 }
 
@@ -52,13 +50,9 @@ export async function goFetchVideo(url, id, method = 'get', payload = null) {
         const standardRequest = getRequest(method, payload);
         const response = await fetch(url, standardRequest);
         const blob = await response.blob();
-        // Downloaded the correct files:
-        // console.log(blob);
         const source = document.getElementById(id);
         const contentsOfBlob = URL.createObjectURL(blob);
-        // console.log('contentsOfBlob:', contentsOfBlob);
         source.setAttribute('src', contentsOfBlob);
-        // reload <video>:
         source.parentElement.load();
     } catch (jsError) {
         const message = jsError ?? 'Fetch error';
