@@ -30,6 +30,9 @@
     }
 
     async function getVideoBlob(vid, id) {
+        if (vid.src == null) {
+            return;
+        }
         const url = `${videoUrl}?file=${vid.src}`;
         // Preventing the text from loading before the videos have loaded:
         await goFetchVideo(url, id);

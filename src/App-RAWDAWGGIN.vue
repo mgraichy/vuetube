@@ -1,5 +1,5 @@
 <script setup>
-    import { provide, ref } from 'vue';
+    import { computed, provide, ref } from 'vue';
     import { RouterView } from 'vue-router'
     import { config } from './composables/oauth2-config.js';
     import { redirectToAuthorizationServer } from './composables/oauth2-redirect.js';
@@ -8,11 +8,11 @@
     import LeftSidebar from './components/LeftSidebar.vue';
     import Loader from './components/Loader.vue';
 
+    // const accessToken = sessionStorage.getItem('access_token');
     const videoStringUrl = `${config.oauthUri}/api/video-strings?client_id=${config.clientId}`;
     const videoStringArray = ref([{}]);
     const pathname = ref(window.location.pathname);
-    const isLoading = ref(false);
-    goFetch(videoStringUrl, videoStringArray, isLoading);
+    goFetch(videoStringUrl, videoStringArray);
 
     const toggleLeftSidebar = ref(true);
     provide('leftSidebar', toggleLeftSidebar);
@@ -27,11 +27,11 @@
 </script>
 
 <template>
-    <!-- <div>Number of Reloads: {{ reloadPageCount() }}</div> -->
+    <div>Number of Reloads: {{ reloadPageCount() }}</div>
     <div class="p-0 m-0 h-svh flex flex-col overflow-hidden">
         <Header :video-string-array="videoStringArray"></Header>
-        <div v-if="isLoading"><Loader></Loader></div>
         <div v-if="videoStringArray[0]?.error !== undefined">
+            <!-- videoStringArray, ERROR: {{ videoStringArray }} -->
             <div v-if="pathname == '/' && videoStringArray[0]?.status == 401"
                 class="grid justify-items-center items-center h-svh text-lg font-bold"
                 @click="redirectToAuthorizationServer()"

@@ -9,13 +9,7 @@
     const videoUrl = `${config.oauthUri}/api/videos`;
     const urlComments = `${config.oauthUri}/api/comments`;
     const comments = ref([{}]);
-
-    // Thee vars to Prevent the text from loading
-    // before the videos have loaded;
-    // see also getVideoBlob():
-    const paint = ref(false);
-    const totalLength = ref(0);
-    const currentLength = ref(0);
+    const isLoading = ref(false);
 
     const route = useRoute();
     const router = useRouter();
@@ -32,7 +26,7 @@
             query: { vid: JSON.stringify(vid) },
         });
 
-        // Update mainVideo without modifying the videoStringArray:
+        // Update mainVideo from videoStringArray's particular element:
         mainVideo.value = vid;
         console.log('goToVideo vid:', vid);
         console.log('goToVideo mainVideo.value:', mainVideo.value);
@@ -53,40 +47,29 @@
         }
     );
 
-    function getTotalLength() {
-        totalLength.value = videoStringArray.value.length;
-    }
-
-    async function getVideoBlob(vid, id) {
+    function getVideoBlob(vid, id) {
         console.log('getVideoBlob vid:', vid, 'getVideoBlob id:', id);
         const url = `${videoUrl}?file=${vid}`;
         // Preventing the text from loading before the videos have loaded:
-        await goFetchVideo(url, id);
-        currentLength.value++;
-        if (totalLength.value == currentLength.value) {
-            paint.value = true;
-        }
+        goFetchVideo(url, id);
     };
 </script>
 
 <template>
     <div v-if="videoStringArray" class="grid lg:grid-cols-[4fr_1fr] mr-2 lg:mr-0 overflow-y-auto">
         <div> <!--Start subgrid column 1 / 2: -->
-
-            <!-- Main video: -->
-            <div class="justify-self-center cursor-pointer aspect-video">
-                <video
-                    crossorigin="use-credentials"
-                    class="w-full h-auto"
-                    controls
+            <video
+                class="justify-self-center cursor-pointer aspect-video min-w-full h-auto"
+                crossorigin="use-credentials"
+                controls
+            >
+                <!-- -->
+                <source
+                    id="source-main-video"
+                    :src="getVideoBlob(mainVideo.src, 'source-main-video')"
+                    type="video/mp4"
                 >
-                    <source
-                        id="source-main-video"
-                        :src="getVideoBlob(mainVideo.src, 'source-main-video')"
-                        type="video/mp4"
-                    >
-                </video>
-            </div>
+            </video>
 
             <!-- Main title text block: -->
             <div class="flex m-2">
@@ -123,7 +106,10 @@
                     </div>
                 </div>
             </div>
+        </div> <!-- end grid column 1-->
 
+        <!-- Sidebar, subgrid (at the top of this file) col 2 / 2: -->
+        <div>
             <!-- Right sidebar (videos) under the comments on small screens: -->
             <div id="right-sidebar-small-screens" class="lg:hidden ml-2">
                 <div
@@ -143,9 +129,10 @@
                                 hover:rounded-none
                             "
                         >
+                            <!--  -->
                            <source
-                                :id="`source-${index}`"
-                                :src="getVideoBlob(vid.src, `source-${index}`)"
+                                :id="`source-small-screen-${index}`"
+                                :src="getVideoBlob(vid.src, `source-small-screen-${index}`)"
                                 type="video/mp4"
                             >
                         </video>
@@ -159,42 +146,41 @@
                 </div>
             </div>
 
-        </div> <!-- end grid column 1-->
 
-        <!-- Sidebar, subgrid (at the top of this file) col 2 / 2: -->
-        <div id="right-sidebar-large-screens" class="hidden lg:block ml-2">
-            <div
-                v-for="(vid, index) in separateSidebarVideos"
-                :key="index"
-                @click="goToVideo(vid)"
-                class="grid gap-x-1 lg:grid-cols-[repeat(2,160px)] cursor-pointer"
-            >
-                <div class="aspect-video mb-2">
-                    <video
-                        crossorigin="use-credentials"
-                        class="max-w-full
-                            h-auto
-                            rounded-md
-                            transition:all
-                            duration-1000
-                            hover:rounded-none
-                        "
-                    >
-                        <source
-                            :id="`source-${index}`"
-                            :src="getVideoBlob(mainVideo.src, `source-${index}`)"
-                            type="video/mp4"
+            <div id="right-sidebar-large-screens" class="hidden lg:block ml-2">
+                <div
+                    v-for="(vid, index) in separateSidebarVideos"
+                    :key="index"
+                    @click="goToVideo(vid)"
+                    class="grid gap-x-1 grid-cols-[160px,1fr] cursor-pointer"
+                >
+                    <div class="aspect-video mb-2">
+                        <video
+                            crossorigin="use-credentials"
+                            class="max-w-full
+                                h-auto
+                                rounded-md
+                                transition:all
+                                duration-1000
+                                hover:rounded-none
+                            "
                         >
-                    </video>
-                </div>
+                            <!--  -->
+                           <source
+                                :id="`source-large-screen-${index}`"
+                                :src="getVideoBlob(vid.src, `source-large-screen-${index}`)"
+                                type="video/mp4"
+                            >
+                        </video>
+                    </div>
 
-                <div class="flex flex-col cursor-pointer">
-                    <div class="text-base font-extrabold">{{ vid.title }}</div>
-                    <div class="text-sm pb-1 text-gray-300">{{ vid.name }}</div>
-                    <div class="text-xs text-gray-300">{{ vid.views }} views • {{ countTimeSincePosting(new Date(vid.date)) }}</div>
+                    <div class="flex flex-col">
+                        <div class="text-base font-extrabold w-full cursor-pointer">{{ vid.title }}</div>
+                        <div class="text-sm pb-0.5 w-full text-gray-300 cursor-pointer">{{ vid.name }}</div>
+                        <div class="text-xs mb-1 w-full text-gray-300 cursor-pointer">{{ vid.views }} views • {{ countTimeSincePosting(new Date(vid.date)) }}</div>
+                    </div>
                 </div>
             </div>
-
         </div> <!-- End grid column 2 -->
 
     </div>
