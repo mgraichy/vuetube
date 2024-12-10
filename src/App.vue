@@ -24,7 +24,7 @@
     <div class="p-0 m-0 h-svh flex flex-col overflow-hidden">
         <Header :video-string-array="videoStringArray" videos="videos"></Header>
             <div v-if="(videoStringArray[0]?.error !== undefined)">
-                videoStringArray, ERROR: {{ videoStringArray }}
+                <!-- videoStringArray, ERROR: {{ videoStringArray }} -->
                 <div v-if="pathname == '/' && videoStringArray[0]?.status == 401"
                     class="grid justify-items-center items-center h-svh text-lg font-bold"
                     @click="redirectToAuthorizationServer()"
@@ -36,8 +36,6 @@
                 </div>
         </div>
         <main class="grid grid-cols-[auto,1fr] flex-grow-1 overflow-auto">
-            <!-- videoStringArray, ALL GOOD: {{ videoStringArray }} -->
-            <!-- videos: {{ videos['traffic-540p.mp4'] }} -->
             <LeftSidebar></LeftSidebar>
             <!-- router loads HomeView / WatchView: -->
             <RouterView />
