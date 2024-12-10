@@ -8,9 +8,10 @@
     const videoStringArray = inject('videoStringArray');
     const videoUrl = `${config.oauthUri}/api/videos`;
 
-    // Preventing the text from loading before the videos have loaded,
+    // Thee vars to Prevent the text from loading
+    // before the videos have loaded;
     // see also getVideoBlob():
-    const printText = ref(false);
+    const paint = ref(false);
     const totalLength = ref(0);
     const currentLength = ref(0);
 
@@ -34,7 +35,7 @@
         await goFetchVideo(url, id);
         currentLength.value++;
         if (totalLength.value == currentLength.value) {
-            printText.value = true;
+            paint.value = true;
         }
     };
 </script>
@@ -48,7 +49,7 @@
                 auto-rows-min"
         >
             {{ getTotalLength() }}
-            <div v-for="(vid, index) in videoStringArray"
+            <div v-show="paint" v-for="(vid, index) in videoStringArray"
                 :key="index"
                 @click="goToVideo(vid)"
                 class="cursor-pointer aspect-video"
@@ -70,7 +71,7 @@
                     >
                     Your browser does not support the video tag.
                 </video>
-                <div v-show="printText" class="flex m-2">
+                <div class="flex m-2">
                     <div class="rounded-full self-center h-12 w-12 bg-vue mr-4 text-center leading-[3rem]">
                         {{ vid.initials }}
                     </div>

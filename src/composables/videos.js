@@ -47,9 +47,11 @@ export async function goFetch(url, data, method = 'get', payload = null) {
 
 export async function goFetchVideo(url, id, method = 'get', payload = null) {
     try {
+        console.log('url:', url, 'id:', id);
         const standardRequest = getRequest(method, payload);
         const response = await fetch(url, standardRequest);
         const blob = await response.blob();
+
         const source = document.getElementById(id);
         const contentsOfBlob = URL.createObjectURL(blob);
         source.setAttribute('src', contentsOfBlob);
