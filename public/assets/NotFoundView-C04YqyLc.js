@@ -1,0 +1,1 @@
+import{_ as s,d as o,e as t,o as n}from"./index-D2yacjM3.js";const c={},r={class:"bg-black relative inset-0"};function i(a,e){return n(),o("div",r,e[0]||(e[0]=[t("div",{class:"grid justify-items-center items-center h-svh"},[t("div",{class:"font-bold text-4xl w-fit not-found"})],-1)]))}const l=s(c,[["render",i]]);export{l as default};

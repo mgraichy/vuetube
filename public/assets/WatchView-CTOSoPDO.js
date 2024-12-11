@@ -1,1 +1,0 @@
-import{o as E,c as t,a}from"./index-vVWfynxA.js";const _={__name:"AppWatch",setup(Y){return(e,c)=>(E(),t("div",null,"HHHHHHHHHEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEYYYYYYYYYYYYYYYYYYYYYY!!!!!!!!!!!!!!"))}},n={__name:"WatchView",setup(Y){return(e,c)=>(E(),a(_))}};export{n as default};

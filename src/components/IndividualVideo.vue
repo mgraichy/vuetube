@@ -5,11 +5,11 @@
     import { goFetch, goFetchVideo } from '../composables/videos.js';
     import { countTimeSincePosting } from '../composables/formatTime.js';
 
+    const comments = ref([{}]);
+    const urlComments = `${config.oauthUri}/api/comments`;
+    const isLoading = inject('isLoading');
     const videoStringArray = inject('videoStringArray');
     const videoUrl = `${config.oauthUri}/api/videos`;
-    const urlComments = `${config.oauthUri}/api/comments`;
-    const comments = ref([{}]);
-    const isLoading = ref(false);
 
     const route = useRoute();
     const router = useRouter();
@@ -28,8 +28,6 @@
 
         // Update mainVideo from videoStringArray's particular element:
         mainVideo.value = vid;
-        console.log('goToVideo vid:', vid);
-        console.log('goToVideo mainVideo.value:', mainVideo.value);
         goFetch(`${urlComments}?id=${vid.id}`, comments);
     }
 
@@ -47,11 +45,12 @@
         }
     );
 
-    function getVideoBlob(vid, id) {
-        console.log('getVideoBlob vid:', vid, 'getVideoBlob id:', id);
+    async function getVideoBlob(vid, id) {
+        if (!vid || !id) return;
+        isLoading.value = true;
         const url = `${videoUrl}?file=${vid}`;
-        // Preventing the text from loading before the videos have loaded:
-        goFetchVideo(url, id);
+        await goFetchVideo(url, id);
+        setTimeout(() => {isLoading.value = false;}, 1200);
     };
 </script>
 
@@ -59,7 +58,7 @@
     <div v-if="videoStringArray" class="grid lg:grid-cols-[4fr_1fr] mr-2 lg:mr-0 overflow-y-auto">
         <div> <!--Start subgrid column 1 / 2: -->
             <video
-                class="justify-self-center cursor-pointer aspect-video min-w-full h-auto"
+                class="justify-self-center cursor-pointer aspect-video w-full h-auto"
                 crossorigin="use-credentials"
                 controls
             >
@@ -157,7 +156,7 @@
                     <div class="aspect-video mb-2">
                         <video
                             crossorigin="use-credentials"
-                            class="max-w-full
+                            class="w-full
                                 h-auto
                                 rounded-md
                                 transition:all
@@ -175,8 +174,8 @@
                     </div>
 
                     <div class="flex flex-col">
-                        <div class="text-base font-extrabold w-full cursor-pointer">{{ vid.title }}</div>
-                        <div class="text-sm pb-0.5 w-full text-gray-300 cursor-pointer">{{ vid.name }}</div>
+                        <div class="lg:text-sm text-base font-extrabold w-full cursor-pointer">{{ vid.title }}</div>
+                        <div class="lg:text-xs text-sm pb-0.5 w-full text-gray-300 cursor-pointer">{{ vid.name }}</div>
                         <div class="text-xs mb-1 w-full text-gray-300 cursor-pointer">{{ vid.views }} views • {{ countTimeSincePosting(new Date(vid.date)) }}</div>
                     </div>
                 </div>
