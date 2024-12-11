@@ -12,22 +12,17 @@
     const videoStringArray = ref([{}]);
     const pathname = ref(window.location.pathname);
     const isLoading = ref(false);
+
     goFetch(videoStringUrl, videoStringArray, isLoading);
 
     const toggleLeftSidebar = ref(true);
     provide('leftSidebar', toggleLeftSidebar);
+    provide('isLoading', isLoading);
     provide('pathname', pathname);
     provide('videoStringArray', videoStringArray);
-
-    var numberOfReloads = 0;
-    function reloadPageCount() {
-        ++numberOfReloads;
-        return numberOfReloads;
-    }
 </script>
 
 <template>
-    <!-- <div>Number of Reloads: {{ reloadPageCount() }}</div> -->
     <div class="p-0 m-0 h-svh flex flex-col overflow-hidden">
         <Header :video-string-array="videoStringArray"></Header>
         <div v-if="isLoading"><Loader></Loader></div>

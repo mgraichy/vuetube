@@ -1,1 +1,0 @@
-import{c,d as s,o as a}from"./index-vVWfynxA.js";const l=(t,o)=>{const e=t.__vccOpts||t;for(const[n,r]of o)e[n]=r;return e},d={};function u(t,o){return a(),c("div",null,o[0]||(o[0]=[s("h1",null,"404 - Not Found",-1)]))}const f=l(d,[["render",u]]);export{f as default};

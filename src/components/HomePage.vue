@@ -1,5 +1,5 @@
 <script setup>
-    import { inject, nextTick, ref } from 'vue';
+    import { computed, inject, ref } from 'vue';
     import { useRouter } from 'vue-router';
     import { config } from '../composables/oauth2-config.js';
     import { goFetchVideo } from '../composables/videos.js';
@@ -25,14 +25,12 @@
         });
     }
 
-    function getTotalLength() {
+    const getTotalLength = computed(() => {
         totalLength.value = videoStringArray.value.length;
-    }
+    });
 
     async function getVideoBlob(vid, id) {
-        if (vid.src == null) {
-            return;
-        }
+        if (!vid.src || !id) return;
         const url = `${videoUrl}?file=${vid.src}`;
         // Preventing the text from loading before the videos have loaded:
         await goFetchVideo(url, id);
@@ -51,7 +49,7 @@
                 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]
                 auto-rows-min"
         >
-            {{ getTotalLength() }}
+            {{ getTotalLength }}
             <div v-show="paint" v-for="(vid, index) in videoStringArray"
                 :key="index"
                 @click="goToVideo(vid)"

@@ -9,7 +9,6 @@
     const leftSidebar = inject('leftSidebar');
     const pathname = inject('pathname');
 
-    // Static props:
     const props = defineProps({
         videoStringArray: Array|Object
     });
