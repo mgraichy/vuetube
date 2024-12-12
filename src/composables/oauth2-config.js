@@ -1,4 +1,4 @@
-const homeUri  = 'http://localhost:5173';
+const homeUri  = 'https://localhost:5173';
 const oauthUri = 'https://dev.laravel';
 const accessTokensessionStorage = sessionStorage.getItem('access_token');
 export const config = {
@@ -13,3 +13,9 @@ export const config = {
     oauthAccessToken: `${oauthUri}/oauth/token`,
     accessTokenSessionStorage: accessTokensessionStorage,
 };
+
+export function authenticate() {
+    const accessToken = sessionStorage.getItem('access_token');
+    if (!accessToken) return false;
+    return true;
+}

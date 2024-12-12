@@ -49,6 +49,7 @@
         if (!vid || !id) return;
         isLoading.value = true;
         const url = `${videoUrl}?file=${vid}`;
+        console.log(url);
         await goFetchVideo(url, id);
         setTimeout(() => {isLoading.value = false;}, 1200);
     };

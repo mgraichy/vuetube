@@ -10,6 +10,7 @@ function getRequest(method, payload) {
         },
         mode: 'cors',
         credentials: 'include',
+        cache: 'default',
         method: method,
     };
 

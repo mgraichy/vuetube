@@ -3,6 +3,7 @@
     import { useRouter } from 'vue-router';
     import MenuIcon from 'vue-material-design-icons/Menu.vue';
     import MagnifyIcon from 'vue-material-design-icons/Magnify.vue';
+    import { authenticate } from '../composables/oauth2-config.js';
     import { redirectToAuthorizationServer } from '../composables/oauth2-redirect.js';
     import HeaderLayout from '../layouts/HeaderLayout.vue';
 
@@ -19,23 +20,17 @@
     const focused = ref(false);
     const form = ref({search: ''});
 
-    let accessToken = sessionStorage.getItem('access_token');
-
-    if (accessToken == null) {
-        loginButton.value = 'login';
-    } else {
-        loginButton.value = 'm';
-    }
+    const initialAccessToken = authenticate();
+    loginButton.value = initialAccessToken ? 'm' : 'login';
 
     function logIn() {
-        accessToken = sessionStorage.getItem('access_token');
-        if (accessToken == null) {
+        const accessToken = authenticate();
+        if (!accessToken) {
             redirectToAuthorizationServer();
         } else {
             sessionStorage.removeItem('access_token');
             sessionStorage.removeItem('pkce_code_verifier');
             sessionStorage.removeItem('pkce_state');
-            accessToken = null;
             loginButton.value = 'login';
             window.location.replace('/');
         }
