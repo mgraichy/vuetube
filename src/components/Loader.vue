@@ -1,6 +1,6 @@
 <template>
     <div class="bg-black relative inset-0">
-        <div class="grid justify-items-center items-center h-svh">
+        <div class="grid justify-items-center mt-2 sm:items-center sm:mt-0 h-svh">
             <div class="loader"></div>
         </div>
     </div>
