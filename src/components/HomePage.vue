@@ -47,7 +47,8 @@
             class="grid
                 gap-4
                 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]
-                auto-rows-min"
+                auto-rows-min
+                mr-2"
         >
             {{ getTotalLength }}
             <div v-show="paint" v-for="(vid, index) in videoStringArray"
