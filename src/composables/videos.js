@@ -25,6 +25,7 @@ export async function goFetch(url, data, isLoading = {}, method = 'get', payload
     try {
         isLoading.value = true;
         const standardRequest = getRequest(method, payload);
+        console.log(url, standardRequest)
         const response = await fetch(url, standardRequest);
         const json = await response.json();
 
