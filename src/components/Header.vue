@@ -174,7 +174,7 @@
             <button
                 style="font-variant: small-caps; font-variant-caps: small-caps;"
                 :style="pathname != '/callback' ? 'visibility: visible;' : 'visibility: hidden;'"
-                class="rounded-full self-center h-12 w-12 bg-vue ml-2 text-center leading-[3rem]"
+                class="rounded-full self-center h-10 w-10 bg-vue ml-2 text-center"
                 @click="logIn"
             >
                 {{ loginButton }}

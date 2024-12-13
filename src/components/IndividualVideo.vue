@@ -62,7 +62,8 @@
                 xl:grid-cols-[3fr_1fr]
                 lg:grid-cols-[2fr_1fr]
                 lg:mr-0
-                mr-2 overflow-y-auto">
+                mr-2"
+        >
         <div id="grid-column-1"> <!--Start subgrid column 1 / 2: -->
             <video
                 class="justify-self-center cursor-pointer aspect-video w-full h-auto"
