@@ -28,7 +28,7 @@
         <div v-if="isLoading"><Loader></Loader></div>
         <div v-if="videoStringArray[0]?.error !== undefined">
             <div v-if="pathname == '/' && videoStringArray[0]?.status == 401"
-                class="grid justify-items-center items-center h-svh text-lg font-bold"
+                class="grid justify-items-center mt-2 h-svh text-lg font-bold"
                 @click="redirectToAuthorizationServer()"
             >
                 <div class="cursor-pointer">Please Log In</div>

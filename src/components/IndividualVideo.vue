@@ -56,14 +56,19 @@
 </script>
 
 <template>
-    <div v-if="videoStringArray" class="grid lg:grid-cols-[4fr_1fr] mr-2 lg:mr-0 overflow-y-auto">
-        <div> <!--Start subgrid column 1 / 2: -->
+    <div v-if="videoStringArray"
+        class="grid
+                2xl:grid-cols-[4fr_1fr]
+                xl:grid-cols-[3fr_1fr]
+                lg:grid-cols-[2fr_1fr]
+                lg:mr-0
+                mr-2 overflow-y-auto">
+        <div id="grid-column-1"> <!--Start subgrid column 1 / 2: -->
             <video
                 class="justify-self-center cursor-pointer aspect-video w-full h-auto"
                 crossorigin="use-credentials"
                 controls
             >
-                <!-- -->
                 <source
                     id="source-main-video"
                     :src="getVideoBlob(mainVideo.src, 'source-main-video')"
@@ -109,7 +114,7 @@
         </div> <!-- end grid column 1-->
 
         <!-- Sidebar, subgrid (at the top of this file) col 2 / 2: -->
-        <div>
+        <div id="grid-column-2">
             <!-- Right sidebar (videos) under the comments on small screens: -->
             <div id="right-sidebar-small-screens" class="lg:hidden ml-2">
                 <div
@@ -129,7 +134,6 @@
                                 hover:rounded-none
                             "
                         >
-                            <!--  -->
                            <source
                                 :id="`source-small-screen-${index}`"
                                 :src="getVideoBlob(vid.src, `source-small-screen-${index}`)"
@@ -165,7 +169,6 @@
                                 hover:rounded-none
                             "
                         >
-                            <!--  -->
                            <source
                                 :id="`source-large-screen-${index}`"
                                 :src="getVideoBlob(vid.src, `source-large-screen-${index}`)"
