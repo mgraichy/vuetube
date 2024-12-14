@@ -1,6 +1,6 @@
 <template>
     <div class="bg-black relative inset-0">
-        <div class="grid justify-items-center items-center h-svh">
+        <div class="grid justify-items-center mt-2 h-svh">
             <div class="font-bold text-4xl w-fit not-found"></div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-// https://blog.webdevsimplified.com/2020-07/relative-time-format/
+// See https://blog.webdevsimplified.com/2020-07/relative-time-format/
 const formatter = new Intl.RelativeTimeFormat(undefined, {numeric: "always"});
 
 const DIVISIONS = [
