@@ -9,6 +9,8 @@
     const urlComments = `${config.oauthUri}/api/comments`;
     const isLoading = inject('isLoading');
     const videoStringArray = inject('videoStringArray');
+    const leftSidebar = inject('leftSidebar');
+    leftSidebar.value = false;
     const videoUrl = `${config.oauthUri}/api/videos`;
 
     const route = useRoute();
@@ -49,7 +51,6 @@
         if (!vid || !id) return;
         isLoading.value = true;
         const url = `${videoUrl}?file=${vid}`;
-        console.log(url);
         await goFetchVideo(url, id);
         setTimeout(() => {isLoading.value = false;}, 1200);
     };
@@ -62,7 +63,7 @@
                 xl:grid-cols-[3fr_1fr]
                 lg:grid-cols-[2fr_1fr]
                 lg:mr-0
-                mr-2"
+                mx-2"
         >
         <div id="grid-column-1"> <!--Start subgrid column 1 / 2: -->
             <video

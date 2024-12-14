@@ -1,4 +1,4 @@
-// https://blog.webdevsimplified.com/2020-07/relative-time-format/
+// See https://blog.webdevsimplified.com/2020-07/relative-time-format/
 const LEADING_ZERO_FORMATTER = new Intl.NumberFormat(undefined, {
   minimumIntegerDigits: 2,
 });

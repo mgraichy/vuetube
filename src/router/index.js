@@ -7,22 +7,22 @@ const router = createRouter({
         {
             path: '/',
             name: 'home',
-            component: () => import('../views/HomeView.vue'),//,HomeView,
+            component: () => import('../views/HomePage.vue'),//,HomeView,
         },
         {
             path: '/watch/:id',
             name: 'watch',
-            component: () => import('../views/WatchView.vue'),
+            component: () => import('../views/WatchPage.vue'),
         },
         {
             path: '/callback',
             name: 'cb',
-            component: () => import('../views/CallbackView.vue'),
+            component: () => import('../views/CallbackPage.vue'),
         },
         {
             path: '/:path(.*)',
             name: 'NotFound',
-            component: () => import('../views/NotFoundView.vue'),
+            component: () => import('../views/NotFoundPage.vue'),
         },
     ],
 })
