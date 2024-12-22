@@ -25,10 +25,4 @@ export default defineConfig({
             cert: fs.readFileSync(crt),
         },
     },
-    // "npm run build", See https://vite.dev/config/build-options.html#build-outdir.
-    // (outDir is relative to the document root; assetsDir is relative to outDir):
-    build: {
-        outDir: 'public',
-        assetsDir: 'assets',
-    }
 })

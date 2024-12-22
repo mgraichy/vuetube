@@ -29,7 +29,6 @@ export async function goFetch(url, data, isLoading = {}, method = 'get', payload
         const json = await response.json();
 
         if (!response.ok) {
-            // array of objects:
             data.value = [{
                 error: json.error || 'General Error',
                 status: response.status,
@@ -37,12 +36,9 @@ export async function goFetch(url, data, isLoading = {}, method = 'get', payload
 
             return;
         }
-        // 'json.data' is an array of objects,
-        // now that we've safely fetch()ed the outermost 'json' object:
         data.value = json.data;
     } catch (jsError) {
         const message = jsError.message ?? 'Fetch error';
-        // array of objects:
         data.value = [{error: message, status: 'JS Error somewhere inside goFetch()'}];
     } finally {
         isLoading.value = false;
@@ -56,8 +52,8 @@ export async function goFetchVideo(url, id, method = 'get', payload = null) {
         const blob = await response.blob();
 
         const source = document.getElementById(id);
-        const contentsOfBlob = URL.createObjectURL(blob);
-        source.setAttribute('src', contentsOfBlob);
+        const urlReferenceToBlob = URL.createObjectURL(blob);
+        source.setAttribute('src', urlReferenceToBlob);
         source.parentElement.load();
     } catch (jsError) {
         const message = jsError ?? 'Fetch error';
