@@ -35,6 +35,16 @@ async function pkceChallengeFromVerifier(codeVerifier) {
 }
 
 export async function redirectToAuthorizationServer() {
+
+    if ('serviceWorker' in navigator) {
+        try {
+            // service-worker.js placed in public/ directory in prod:
+            await navigator.serviceWorker.register('/service-worker.js');
+        } catch (e) {
+            console.error(`Registration failed: ${e}`);
+        }
+    }
+
     const state = stringOfRandomBytes(20);
     sessionStorage.setItem('pkce_state', state);
 

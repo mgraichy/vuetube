@@ -20,7 +20,6 @@
             absolute
             bg-black
             top-[46px]
-            right-[92%]
             bottom-0
             left-[-.375rem]"
         >
@@ -30,7 +29,7 @@
                     class="flex flex-row"
                 >
                     <Home />
-                    <div class="align-self ml-1">Home</div>
+                    <div class="align-self ml-1 pr-4">Home</div>
                 </RouterLink>
             </li>
         </LeftSidebarLayout>
@@ -60,10 +59,12 @@
         bottom: 0;
         left: .375rem;
         transition: 175ms;
+        z-index: 9999;
     }
 
     .v-enter-from,
     .v-leave-to {
         transform: translateX(-100px);
+        z-index: 9999;
     }
 </style>

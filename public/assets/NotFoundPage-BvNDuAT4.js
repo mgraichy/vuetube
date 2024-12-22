@@ -1,0 +1,1 @@
+import{_ as s,a as o,g as e,o as n}from"./index-C4Lbfoa-.js";const a={},c={class:"bg-black relative inset-0"};function r(i,t){return n(),o("div",c,t[0]||(t[0]=[e("div",{class:"grid justify-items-center mt-2 h-svh"},[e("div",{class:"font-bold text-4xl w-fit not-found"})],-1)]))}const l=s(a,[["render",r]]);export{l as default};

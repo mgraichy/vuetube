@@ -1,7 +1,9 @@
 const homeUri  = 'https://localhost:5173';
+// const homeUri  = 'https://dev.third-party-website';
 const oauthUri = 'https://dev.laravel';
 const accessTokensessionStorage = sessionStorage.getItem('access_token');
 export const config = {
+    // clientId == 1 for https://localhiost:5173, 2 for dev.third-party-website, and 3 for the live site:
     clientId: 1,
     grantType: 'authorization_code',
     responseType: 'code',
