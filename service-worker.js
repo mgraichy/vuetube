@@ -15,9 +15,11 @@ async function cacheServerResponse(event, serverResponse) {
 async function getCacheOrFetch(event) {
     const cachedResponse = await caches.match(event.request);
     if (cachedResponse) {
-        return cachedResponse
+        console.log('getCacheOrFetch(event), Serving from cache:', cachedResponse);
+        return cachedResponse;
     };
 
+    console.log('getCacheOrFetch(event), Serving from server:', event.request);
     const serverResponse = await fetch(event.request);
     return cacheServerResponse(event, serverResponse);
 }

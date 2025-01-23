@@ -21,7 +21,8 @@
             bg-black
             top-[46px]
             bottom-0
-            left-[-.375rem]"
+            left-[-.375rem]
+            z-50"
         >
             <li>
                 <RouterLink
@@ -59,12 +60,12 @@
         bottom: 0;
         left: .375rem;
         transition: 175ms;
-        z-index: 9999;
+        z-index: 50;
     }
 
     .v-enter-from,
     .v-leave-to {
         transform: translateX(-100px);
-        z-index: 9999;
+        z-index: 50;
     }
 </style>

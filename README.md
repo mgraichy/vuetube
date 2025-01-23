@@ -1,41 +1,32 @@
-# vuetube
+# VueTube
 
-This template should help get you started developing with Vue 3 in Vite.
+VueTube is a YouTube-inspired application built with a Vue 3 frontend and a Laravel 11 backend, designed to operate with completely separate frontend and backend domains. It features full OAuth2.0 authentication and serves videos from a private server-side directory for enhanced security.
 
-## Recommended IDE Setup
+This is the frontend. [The backend is here](https://github.com/mgraichy/laravel-auth).
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+---
 
-## Customize configuration
+## Features
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+- **Vue 3 Frontend**: Built with the Composition API for a modern and reactive user experience.
+- **Service Workers**: Implemented for robust caching.
 
-## Project Setup
+### Prerequisites
 
-```sh
-npm install
-```
+- Node.js (for Vue 3 frontend).
+- PHP and Composer (for Laravel backend).
+- A database (MySQL, PostgreSQL, etc.).
 
-### Compile and Hot-Reload for Development
 
-```sh
-npm run dev
-```
+## License
 
-### Compile and Minify for Production
+This project is licensed under [MIT](https://opensource.org/license/mit). See the LICENSE file for details.
 
-```sh
-npm run build
-```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+## Acknowledgments
 
-```sh
-npm run test:unit
-```
+The frontend was built with Vue 3, a powerful and flexible JS framework for modern web development. I drew inspiration from these two people:
 
-### Lint with [ESLint](https://eslint.org/)
+- [WebDevSimplified](https://github.com/WebDevSimplified/youtube-react-ts-tailwind-home-page)
+- [John Weeks](https://github.com/John-Weeks-Dev/youtube-clone)
 
-```sh
-npm run lint
-```
