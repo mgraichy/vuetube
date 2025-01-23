@@ -8,7 +8,7 @@
     const videoStringArray = inject('videoStringArray');
     const videoUrl = `${config.oauthUri}/api/videos`;
 
-    // Thee vars to Prevent the text from loading
+    // Three vars to prevent the text from loading
     // before the videos have loaded;
     // see also getVideoBlob():
     const paint = ref(false);
