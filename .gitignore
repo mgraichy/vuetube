@@ -1,5 +1,4 @@
 /public/
-/.vscode/
 # Logs
 logs
 *.log
@@ -20,8 +19,7 @@ coverage
 /cypress/screenshots/
 
 # Editor directories and files
-.vscode/*
-!.vscode/extensions.json
+/.vscode/
 .idea
 *.suo
 *.ntvs*
@@ -30,3 +28,5 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+.prettierrc.json
+.editorconfig
