@@ -14,8 +14,23 @@ This is the frontend. [The backend is here](https://github.com/mgraichy/laravel-
 ### Prerequisites
 
 - Node.js (for Vue 3 frontend).
-- PHP and Composer (for Laravel backend).
-- A database (MySQL, PostgreSQL, etc.).
+- PHP 8.2+ and Composer (for Laravel backend).
+- An SQL database (MySQL, PostgreSQL, etc.).
+
+### Live Site
+
+The live site is fully responsive. It is on a subdomain here, however it works with fully separate domains (for e.g., a whitelabel). It features complete OAuth2.0 security.
+
+- **Home Page**:
+<div align="center">
+    <img src="docs/vuetube.webp" alt="VueTube Home Page">
+</div>
+
+
+- **Individual Video Page**:
+<div align="center">
+    <img src="docs/vuetube-individual-video.webp" alt="VueTube Individual Video">
+</div>
 
 
 ## License
