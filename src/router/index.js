@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { authenticate } from '../composables/oauth2-config.js';
+import { authenticate } from '../utilities/oauth2-config.js';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),

@@ -1,9 +1,9 @@
 <script setup>
     import { computed, inject, ref } from 'vue';
     import { useRouter } from 'vue-router';
-    import { config } from '../composables/oauth2-config.js';
-    import { goFetchVideo } from '../composables/videos.js';
-    import { countTimeSincePosting } from '../composables/formatTime.js';
+    import { config } from '../utilities/oauth2-config.js';
+    import { goFetchVideo } from '../utilities/videos.js';
+    import { countTimeSincePosting } from '../utilities/formatTime.js';
 
     const videoStringArray = inject('videoStringArray');
     const videoUrl = `${config.oauthUri}/api/videos`;

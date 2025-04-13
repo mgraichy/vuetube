@@ -3,8 +3,8 @@
     import { useRouter } from 'vue-router';
     import MenuIcon from 'vue-material-design-icons/Menu.vue';
     import MagnifyIcon from 'vue-material-design-icons/Magnify.vue';
-    import { authenticate } from '../composables/oauth2-config.js';
-    import { redirectToAuthorizationServer } from '../composables/oauth2-redirect.js';
+    import { authenticate } from '../utilities/oauth2-config.js';
+    import { redirectToAuthorizationServer } from '../utilities/oauth2-redirect.js';
     import HeaderLayout from '../layouts/HeaderLayout.vue';
 
     const leftSidebar = inject('leftSidebar');
