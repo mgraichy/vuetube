@@ -1,9 +1,9 @@
 <script setup>
     import { provide, ref } from 'vue';
     import { RouterView } from 'vue-router'
-    import { config } from './composables/oauth2-config.js';
-    import { redirectToAuthorizationServer } from './composables/oauth2-redirect.js';
-    import { goFetch } from './composables/videos.js';
+    import { config } from './utilities/oauth2-config.js';
+    import { redirectToAuthorizationServer } from './utilities/oauth2-redirect.js';
+    import { goFetch } from './utilities/videos.js';
     import Header from './components/Header.vue';
     import LeftSidebar from './components/LeftSidebar.vue';
     import Loader from './components/Loader.vue';
